@@ -1,0 +1,31 @@
+Tests have been organized in a subfolder in the following format:
+--Tests
+  --Function 
+    --test_name.inp
+      --test_name.out
+
+"Function" is the subfolder that contains all the tests that
+pertain to a certain feature. Examples of "Function" are Buy & Sell.
+"test_name" is a descriptive name for each individual test, and is 
+appended with a "0" for a positive test case, & a "1" for a negative
+test case. 
+
+Files with a .inp extension indicate the command-line inputs
+applied for the test case while files with a .out extension 
+relay the output expected from the program once the input specified
+in the .inp file is fed to the command-line program.
+
+A DOS batch script will be used to run the tests - with each test 
+being executed by the script. The script will run the command-line 
+program for each of the specified inputs and then compare the output
+that is obtained from the command-line program execution to the output
+that is recorded in the .out file for each matching test. 
+
+If the outputs of the .out file and the command-line program execution do not match,
+then the batch script will immediately output the name of the test case that failed,
+as well as the output that was obtained from the execution of the program.
+
+If the outputs of the .out file and the command-line program execution do indeed match,
+then the batch script will not signify anything immediately upon completion of running a
+specific test case. Instead, if all test cases pass at the end, then the script will indicate
+that all tests passed with the message "All test cases have passed".
