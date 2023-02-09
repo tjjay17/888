@@ -3,5 +3,5 @@ Enter session type
 Enter operation
 Enter the event title you would like to sell
 Enter the price of each ticket
-Each ticket must be between 0.01 and 999.99, please re-enter ticket price
+Each ticket has a maximum price of 999.99, please re-enter ticket price
 Session terminated
