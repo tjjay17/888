@@ -1,7 +1,7 @@
 Enter user type: AA
 Login 
 Admin
-Enter amount of credit to add (0-9 digits, positive number)
-User’s username(15- characters)
+Enter amount of credit to add (0-9 digits, positive number): $50
+User’s username(15- characters): James
 Validate
 Logout
