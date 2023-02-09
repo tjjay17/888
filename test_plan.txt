@@ -15,7 +15,7 @@ applied for the test case while files with a .out extension
 relay the output expected from the program once the input specified
 in the .inp file is fed to the command-line program.
 
-A DOS batch script will be used to run the tests - with each test 
+A DOS batch script will be used to run each of the tests in the 'Test' directory - with each test 
 being executed by the script. The script will run the command-line 
 program for each of the specified inputs and then compare the output
 that is obtained from the command-line program execution to the output
@@ -23,7 +23,8 @@ that is recorded in the .out file for each matching test.
 
 If the outputs of the .out file and the command-line program execution do not match,
 then the batch script will immediately output the name of the test case that failed,
-as well as the output that was obtained from the execution of the program.
+as well as the output that was obtained from the execution of the program. This will result
+in revisitation of the specifications and code upon which the test case is created.
 
 If the outputs of the .out file and the command-line program execution do indeed match,
 then the batch script will not signify anything immediately upon completion of running a
