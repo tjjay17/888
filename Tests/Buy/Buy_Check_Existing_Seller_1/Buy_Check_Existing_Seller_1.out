@@ -3,5 +3,6 @@ Enter session type
 Enter operation
 Enter the event title you would like to buy
 Enter the number of tickets you would like to purchase
-You have requested more tickets than available for sale
+Enter the username of the seller
+Please re-enter a seller username that exists
 Session terminated
