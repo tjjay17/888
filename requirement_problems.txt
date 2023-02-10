@@ -1,1 +1,2 @@
 The requirements do not specify anything about negative numbers. We assumed negative numbers are not allowed to be used.
+The requirements do not specify anything about the format of the username. We assumed that symbols and blank spaces are included.
