@@ -1,8 +1,12 @@
 Tests have been organized in a subfolder in the following format:
 --Tests
-  --Function 
-    --test_name.inp
-      --test_name.out
+  --Function
+    -- test_name_0
+      --test_name.inp
+        --test_name.out
+    -- test_name_1
+      --test_name.inp
+        --test_name.out-- 
 
 "Function" is the subfolder that contains all the tests that
 pertain to a certain feature. Examples of "Function" are Buy & Sell.
