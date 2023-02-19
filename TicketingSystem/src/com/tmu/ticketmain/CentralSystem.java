@@ -19,10 +19,14 @@ public class CentralSystem {
         String userInput = "";
         try(BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))){
             //prompts can be changed
-            System.out.println("Welcome to the ticket system \n");
+            System.out.println("Welcome to the ticket system");
             System.out.println("Enter a command to begin");
             while((userInput = stdIn.readLine()) != null){
                 //readin user inputs and assess them
+                if(userInput.equals("login")){
+                    System.out.println("login stuff");
+                    break;
+                }
                 
             }        
         }catch (IOException e){
