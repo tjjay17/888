@@ -86,20 +86,19 @@ public abstract class User {
 		    //check if the number of tickets asked for purchase is legal
 		    if (ticketQuantity > 0  && ticketQuantity <5 ){
 		    
-		        for (int i = 0; i< CentralCore.ticketList.size();i++){
+		        for (int i = 0; i< CentralCore.getTickets().size();i++){
 		            
 		            //check the event name of the ticket exists on the database
-		            if (CentralCore.ticketList.get(i).getEventName.equals(eventName)){
+		            if (CentralCore.getTickets().get(i).getEventName().equals(eventName)){
 		                
 		                //check if the seller exists on the database
-		                if (CentralCore.ticketList.get(i).getSellerUsername.equals(sellerUsername)){
+		                if (CentralCore.getTickets().get(i).getSellerUsername().equals(sellerUsername)){
 		                    
 		                    //check if there are tickets in stock
-		                    if (CentralCore.ticketList.get(i).getTicketscinStock() >= ticketQuantity){
-		                        
-		                        
-		                        System.out.println("The price for a single ticket is: " + CentralCore.ticketList.get(i).getTicketPrice());
-		                        System.out.println("The total cost for the number of tickets purchased is: " + (CentralCore.ticketList.get(i).getTicketPrice()) * ticketQuantity); 
+		                    if (CentralCore.getTickets().get(i).getTicketsinStock() >= ticketQuantity){
+		                        	                        
+		                        System.out.println("The price for a single ticket is: " + CentralCore.getTickets().get(i).getTicketPrice());
+		                        System.out.println("The total cost for the number of tickets purchased is: " + (CentralCore.getTickets().get(i).getTicketPrice()) * ticketQuantity); 
 		                        System.out.println("Would you like to proceed with the purchase of the tickets: Yes / No ");
 		                        String select = scan1.nextLine();
 		                        
@@ -108,19 +107,19 @@ public abstract class User {
 		                            
 		                            case"Yes":
 		                                
-		                               CentralCore.ticketList.get(i).setTicketsinStock(CentralCore.ticketList.get(i).getTicketsinStock() - ticketQuantity);
-		                               for (int j = 0; j< CentralCore.userList.size(); j++){
+		                               CentralCore.getTickets().get(i).setTicketsinStock(CentralCore.getTickets().get(i).getTicketsinStock() - ticketQuantity);
+		                               for (int j = 0; j< CentralCore.getUsers().size(); j++){
 		                                   
-		                                   if (CentralCore.ticketList.get(j).getUsername().equals(this.getUsername())){
+		                                   if (CentralCore.getTickets().get(j).getSellerUsername().equals(this.getUsername())){
 		                                       
-		                                       if (CentralCore.userList.get(j).getCredit > CentralCore.ticketList.get(i).getTicketPrice()){
+		                                       if (CentralCore.getUsers().get(j).getCredit() > CentralCore.getTickets().get(i).getTicketPrice()){
 		                                           System.out.println("Transaction processed successfully");
 		                                           flag = false;
 							       
 		                                           //Save this information in the dailytransaction file and buy/sell transaction file
 		                                           
-		                                           CentralCore.transactionList.add(04, eventName, sellerUsername, ticketQuantity, CentralCore.ticketList.get(i).getTicketPrice());
-		                                           CentralCore.buy_sell_transactionList.add(04, eventName, sellerUsername, ticketQuantity, CentralCore.ticketList.get(i).getTicketPrice());
+		                                           CentralCore.addTransaction(04, eventName, sellerUsername, ticketQuantity, CentralCore.getTickets().get(i).getTicketPrice());
+		                                           CentralCore.addBuySellTransaction(04, eventName, sellerUsername, ticketQuantity, CentralCore.getTickets().get(i).getTicketPrice());
 		                                           break;
 		                                           
 		                                           
@@ -222,8 +221,8 @@ public abstract class User {
 			     
 		         //Save this information in the dailytransaction file and buy/sell transaction file
 		              
-		         CentralCore.transactionList.add(03, eventName, this.username, ticketQuantity, salePrice);
-		         CentralCore.buy_sell_transactionList.add(03, eventName, this.username, ticketQuantity, salePrice);
+		         CentralCore.addTransaction(03, eventName, this.username, ticketQuantity, salePrice);
+		         CentralCore.addBuySellTransaction(03, eventName, this.username, ticketQuantity, salePrice);
 		         break;
 		     }else{
 		           System.out.println("The number of tickets for sale is illegal. Try again.");
@@ -275,7 +274,7 @@ public abstract class User {
 			    
 		        flag = false;
 			//Save this information in the dailytransaction file
-			CentralCore.transactionList.add(06, this.username, this.usertype, credit_to_add);    
+			CentralCore.addTransaction(06, this.username, this.usertype, credit_to_add);    
 			break;
 		    } else {
 				System.out.println("The amount entered is not correct!");

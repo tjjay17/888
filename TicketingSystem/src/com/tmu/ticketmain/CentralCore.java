@@ -13,10 +13,13 @@ import java.util.ArrayList;
  * @author Tj
  */
 public class CentralCore {
-    List<Ticket> tickets = new ArrayList();
-    //uncomment 2 line under when user class created
-    //List<User> userList = new ArrayList();
-    //User activeUser;
+    private static List<Ticket> ticketList = new ArrayList();
+    private static List<User> userList = new ArrayList();
+    private static List<TransactionStream> transactionList = new ArrayList();
+    private static List<TransactionStream> buy_sell_transList = new ArrayList();
+    
+    private User activeUser;
+    
     public static void main(String[] args) throws IOException{
         if(args.length > 0){
             System.out.println("No args needed.");
@@ -52,10 +55,29 @@ public class CentralCore {
     public void getUserOperations(String activeUser, String userType){
     }
     
-    public List<Ticket> getTickets(){
-        return null;
+    public static List<Ticket> getTickets(){
+        return ticketList;
     }
     
+    public static List<User> getUsers(){
+        return userList;
+    }
+    
+    public static List<TransactionStream> getTransactions(){
+        return transactionList;
+    }
+    
+    public static void addTransaction(int code, String eventName, String sellerUser, int ticketQuantity, double price){
+        transactionList.add(new TransactionStream(code, eventName, sellerUser, ticketQuantity, price));
+    }
+    
+    public static void addBuySellTransaction(int code, String eventName, String sellerUser, int ticketQuantity, double price){
+        buy_sell_transList.add(new TransactionStream(code, eventName, sellerUser, ticketQuantity, price));
+    }
+    
+    public static void addTransaction(int code, String userName, String userType, double credit){
+        //add a transaction stream here for refunds
+    }
 /* uncomment after transactionstream class made
     public TransactionStream getTicketTransaction(){
     
