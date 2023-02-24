@@ -10,15 +10,52 @@ package com.tmu.ticketmain;
  * @author Tj
  */
 public class Ticket {
+
+    // instance variables   
     String eventName;
-    String ticketID;
-    int ticketPrice;
-    String ticketSeller;
+    String sellerUsername;
+    int ticketsinStock;
+    double ticketPrice;
     
-    public Ticket(String eventName, String ticketID, int ticketPrice, String ticketSeller){
+    // constructor
+    public Ticket(String eventName, String sellerUsername, int ticketsinStock, double ticketPrice){
         this.eventName = eventName;
-        this.ticketID = ticketID;
+        this.sellerUsername = sellerUsername;
         this.ticketPrice = ticketPrice;
-        this.ticketSeller = ticketSeller;
+        this.ticketsinStock = ticketsinStock;
+    }
+    
+    // setters and getters methods for instance variables
+    
+    public void seteventName (String eventName){
+        this.eventName = eventName;
+    }
+    
+    public String getEventName () {
+        return eventName;
+    }
+    
+    public void setSellerUsername(String sellerUsername){
+        this.sellerUsername = sellerUsername;
+    }
+    
+    public String getSellerUsername(){
+        return sellerUsername;
+    }
+    
+    public void setTicketsinStock(int ticketsinStock){
+        this.ticketsinStock = ticketsinStock;  
+    }
+    
+    public int getTicketsinStock(){
+        return ticketsinStock;
+    }
+    
+    public void setTicketPrice(){
+        this.ticketPrice = ticketPrice;
+    }
+    
+    public double getTicketPrice(){
+        return ticketPrice;
     }
 }
