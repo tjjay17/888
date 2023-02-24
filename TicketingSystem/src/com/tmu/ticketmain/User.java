@@ -72,7 +72,7 @@ public abstract class User {
 	    Scanner scan1 = new Scanner(System.in);
 	    Scanner scan2 = new Scanner(System.in);
 		    
-	    System.out.println("Search for event:");
+	    System.out.println("Search for event: ");
 	    eventName = scan1.nextLine();
 	     
 	    System.out.println("How many tickets would you like to buy?");
@@ -231,7 +231,7 @@ public abstract class User {
 		          }
 		          
 		 }else{
-		       System.out.println("The price tickets for sale is illegal. Try again.");
+		       System.out.println("The price of tickets for sale is illegal. Try again.");
 		       continue;
 		      }
 		      
