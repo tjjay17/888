@@ -110,7 +110,11 @@ public abstract class User {
 		                               CentralCore.getTickets().get(i).setTicketsinStock(CentralCore.getTickets().get(i).getTicketsinStock() - ticketQuantity);
 		                               for (int j = 0; j< CentralCore.getUsers().size(); j++){
 		                                   
+<<<<<<< HEAD
 		                                   if (CentralCore.getTickets().get(j).getSellerUsername().equals(this.getUsername())){
+=======
+		                                   if (CentralCore.userList.get(j).getUsername().equals(this.getUsername())){
+>>>>>>> bc42a75a636bea83083bca8b6fc3f3da45b29f72
 		                                       
 		                                       if (CentralCore.getUsers().get(j).getCredit() > CentralCore.getTickets().get(i).getTicketPrice()){
 		                                           System.out.println("Transaction processed successfully");
