@@ -111,7 +111,7 @@ public abstract class User {
 		                               CentralCore.ticketList.get(i).setTicketsinStock(CentralCore.ticketList.get(i).getTicketsinStock() - ticketQuantity);
 		                               for (int j = 0; j< CentralCore.userList.size(); j++){
 		                                   
-		                                   if (CentralCore.ticketList.get(j).getUsername().equals(this.getUsername())){
+		                                   if (CentralCore.userList.get(j).getUsername().equals(this.getUsername())){
 		                                       
 		                                       if (CentralCore.userList.get(j).getCredit > CentralCore.ticketList.get(i).getTicketPrice()){
 		                                           System.out.println("Transaction processed successfully");
