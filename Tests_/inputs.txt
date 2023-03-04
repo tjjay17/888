@@ -1,0 +1,672 @@
+
+==========Sell_Login_Admin_0.inp==========
+login
+admin
+sell
+logout
+
+
+==========Sell_Limit_Number_Tickets_0.inp==========
+login
+sell-standard
+sell
+'Valid Title'
+400.00
+100
+
+
+
+==========Sell_Login_Full_Standard_0.inp==========
+login 
+full-standard
+sell
+logout
+
+
+
+==========Sell_Limit_Number_Tickets_1.inp==========
+login
+sell-standard
+sell
+Valid Title
+700
+120
+
+
+==========Sell_Event_Title_Valid_0.inp==========
+Login 
+Sell-Standard
+Sell
+‘Valid Title’
+logout
+
+
+
+==========Sell_Login_Buy_Standard_1.inp==========
+login
+buy-standard
+sell
+logout
+
+
+==========Sell_Event_Title_Valid_1.inp==========
+login
+sell-standard
+sell-standard
+'Valid Title'
+
+
+==========Sell_Ticket_Price_Limit_0.inp==========
+Login
+Sell-Standard
+Sell
+‘Valid Title’
+‘999.99’
+
+
+==========Sell_Ticket_Price_Limit_1.inp==========
+Login
+Sell-Standard
+Sell
+‘Valid Title’
+‘1200’
+
+
+==========Sell_Login_Sell_Standard_0.inp==========
+login
+sell-standard
+sell
+logout
+
+
+==========Delete_username_0.inp==========
+Login
+Admin
+Password
+Delete user
+Username
+Confirm
+
+
+
+==========Delete_username_1.inp==========
+Login
+Admin
+Password
+Delete user
+Invalidusername
+
+
+
+==========Deleted_user_transaction_block.inp==========
+Login
+Admin
+Password
+Delete user
+Username2
+Confirm
+Logout
+Login
+Username2
+Password
+
+
+
+==========Delete_unauthorized.inp==========
+Login
+Username
+Password
+Delete user
+
+
+
+==========Logout_standard_0.inp==========
+Login
+Username
+Password
+Logout
+
+
+
+==========Logout_standard_1.inp==========
+Logout
+
+
+
+==========Logout_admin.inp==========
+Login
+Admin
+Password
+Logout
+
+
+
+==========Logout_call_0.inp==========
+Login
+Username
+Password
+Logout
+Login
+Username
+Password
+
+
+
+==========Logout_call_1.inp==========
+Login
+Username
+Password
+Logout
+Buy
+
+
+
+==========Logout_printout.inp==========
+Login
+Username
+Password
+Logout
+
+
+
+==========Addcredit_test_max_credit_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter the maximal amount of credit: $1000
+Logout
+
+
+
+==========Addcredit_test_max_credit_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter the max amount of credit: $1011 
+Logout
+
+
+
+==========Addcredit_check_login_0.inp==========
+Enter user type: AA, User Standard(FS,US,BS)
+Login 
+Admin/User Standard
+Logout
+
+
+
+==========Addcredit_check_login_1.inp==========
+Enter user type: MM
+Login failed
+Session terminated
+
+
+
+==========Addcredit_check_data_entered_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter amount of credit to add (0-9 digits, positive number): $50
+User’s username(15- characters): James
+Validate
+Logout
+
+
+
+==========Addcredit_saved_daily_trans_file_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter add credit transaction details
+Close transaction file
+Logout
+
+
+
+==========Addcredit_saved_daily_trans_file_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter addcredit transaction details
+Close transaction file
+Logout
+
+
+
+==========Addcredit_check_data_entered_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter amount of credit to add (10+ digits or negative )
+User’s username(16+ characters )
+Validate
+Logout
+
+
+
+==========Addcredit_check_client_username_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter client’s username: George
+Logout
+
+
+
+==========Addcredit_check_client_username_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter client’s username: Logan
+Logout
+
+
+
+
+==========Addcredit_check_credit_1.inp==========
+Enter user type: FS, BS, or SS
+Login 
+Standard user
+Enter amount of credit to add (10+digits or negative):-5
+Logout
+
+
+
+==========Addcredit_check_credit_0.inp==========
+Enter user type: FS, BS, or SS
+Login 
+Standard user
+Enter amount of credit to add (0-9 digits, positive): 100
+Logout
+
+
+
+==========Create_test_max_credit_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Add credit: 999,999
+Check credit
+Logout
+
+
+
+==========Create_test_max_credit_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Add credit: 1000
+Check credit
+Logout
+
+
+
+==========Create_test_username_system_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter client’s username: George
+Logout
+
+
+
+==========Create_test_username_system_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter new username: George
+Logout
+
+
+
+==========Create_admin_login_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Create new user account
+Logout
+
+
+
+==========Create_admin_login_1.inp==========
+Enter user type: LL
+Login 
+Admin
+Create new user account
+Logout
+
+
+
+==========Create_daily_transactions_file_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter create transaction details
+Close transaction file
+Logout
+
+
+
+==========Create_daily_transactions_file_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter create transaction details
+Close transaction file
+Logout
+
+
+
+==========Create_new_username_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter new username (0-15 characters): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Logout
+
+
+
+==========Create_new_username_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter new username (0-15 characters): Joy
+Logout
+
+
+
+==========Create_user_type_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter new username's type: OO
+Logout
+
+
+
+==========Create_user_type_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter new username's type: FS
+Logout
+
+
+
+==========Buy_Check_Existing_Seller_1.inp==========
+login
+buy-standard
+buy
+'Valid Title'
+3
+'non-existing seller'
+logout
+
+
+==========Buy_Check_Existing_Seller_0.inp==========
+login
+buy-standard
+buy
+'Valid Title'
+3
+'Valid Username'
+logout
+
+
+==========Buy_Login_Sell_Standard_1.inp==========
+login
+sell-standard
+buy
+logout
+
+
+==========Buy_Privileged_Ticket_Limit_1.inp==========
+login
+buy-standard
+buy
+'Valid Title'
+6
+logout
+
+
+==========Buy_Valid_Number_Tickets_0.inp==========
+login
+buy-standard
+buy
+'Valid Title'
+3
+logout
+
+
+==========Buy_Privileged_Ticket_Limit_0.inp==========
+login
+admin
+buy
+'Valid Title'
+6
+'Valid Seller'
+logout
+
+
+==========Buy_Valid_Numbers_Tickets_1.inp==========
+login
+buy-standard
+buy
+Valid Title
+3
+logout
+
+
+==========Buy_Login_Admin_0.inp==========
+login
+admin
+buy
+logout
+
+
+==========Buy_Existing_Title_0.inp==========
+login
+buy-standard
+buy
+'Valid Title'
+logout
+
+
+==========Buy_Login_Full_Standard_0.inp==========
+login
+full-standard
+buy
+logout
+
+
+==========Buy_Existing_Title_1.inp==========
+login
+buy-standard
+buy
+non-existing title
+logout
+
+
+==========Buy_Login_Buy_Standard_0.inp==========
+login
+buy-standard
+buy
+logout
+
+
+==========Refund_check_transaction_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Check seller’s Account balance
+Check buyer’s Account balance
+Confirm refund processed
+Logout
+
+
+
+==========Refund_check_buyer,seller_existence_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter seller’s username: Alain
+Enter buyer’s username: Delon
+Logout
+
+
+
+
+
+==========Refund_check_login_admin_1.inp==========
+Enter user type: GG
+Login 
+Unsuccessful	 login
+Enter user type:
+
+
+
+==========Refund_check_buyer,seller_existence_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter seller’s username: Ryerson
+Enter buyer’s username: Jeff
+Logout
+
+
+
+==========Refund_check_login_admin_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Logout
+
+
+
+==========Refund_check_transaction_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Check seller’s Account balance
+Check buyer’s Account balance
+Confirm refund processed
+Logout
+
+
+
+==========Refund_data_entered_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Input buyer’s username (16 characters or more): aaaaaaaaaaaaaaaaa
+Input seller’s username (16 characters or more): aaaaaaaaaaaaaaaaa
+Input amount of credit to  transfer (10+ digits or negative): -50
+Logout
+
+
+
+==========Refund_data_entered_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter buyer’s username (15 characters or less):  Ben
+Enter seller’s username (15 characters or less): Mike
+Enter amount of credit to  transfer (9 digits or less, positive): $50
+Logout
+
+
+
+==========Refund_saved_daily_trans_file_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter refund transaction details
+Close transaction file
+Logout
+
+
+
+==========Refund_saved_daily_trans_file_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter refund transaction details
+Close transaction file
+Logout
+
+
+
+==========Invalid_transaction.inp==========
+Sell
+
+
+
+==========Login_standard_1.inp==========
+Login
+Invaliduser
+Password
+
+
+
+==========Login_standard_0.inp==========
+Login
+Username
+Password
+
+
+
+==========Login_admin_0.inp==========
+Login
+Admin
+Password
+
+
+
+==========Login_admin_1.inp==========
+Login
+Admin
+WrongPassword
+
+
+
+==========Repeat_login.inp==========
+Login
+Username
+Password
+Login
+
+
+
+==========Admin_call.inp==========
+Login
+Admin
+Password
+Create user
+Cancel
+Logout
+
+
+
+==========Standard_call_0.inp==========
+Login
+Username
+Password
+Sell
+Cancel
+Logout
+
+
+
+==========Standard_call_1.inp==========
+Login
+Username
+Password
+Create User
+
+
