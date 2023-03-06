@@ -103,7 +103,7 @@ public class CentralCore {
 	    	currentLine = reader.readLine();
     	}
 
-	    reader.close();
+	reader.close();
     } 
     
     // populate userList with users from  users.txt file 
@@ -134,7 +134,7 @@ public class CentralCore {
 	    	currentLine = reader.readLine();
     	}
 
-	    reader.close();
+	reader.close();
     } 
     
     
