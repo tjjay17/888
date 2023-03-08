@@ -1,4 +1,0 @@
-Random event        Arnold         001  10.00
-Random event        Thanooj        002 100.00
-Random event        Daniel         003  15.00
-END
