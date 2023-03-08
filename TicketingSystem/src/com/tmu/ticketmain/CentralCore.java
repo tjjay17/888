@@ -18,7 +18,7 @@ public class CentralCore {
     private static List<TransactionStream> transactionList = new ArrayList();
     private static List<TransactionStream> buy_sell_transList = new ArrayList();
     
-    private User activeUser;
+    private static User activeUser;
     
     public static void main(String[] args) throws IOException{
         if(args.length > 0){
