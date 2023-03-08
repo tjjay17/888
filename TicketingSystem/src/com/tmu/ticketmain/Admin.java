@@ -13,8 +13,15 @@ public class Admin extends User{
         //Placeholder function. Used to retrieve user data from user list.
         String formatted = String.format("Found user %s", target);
         System.out.println(formatted);
+
+        List<User> userList = CentralCore.getUsers();
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getUsername() == target){
+                return true;
+            }
+        }        
         
-        return true;
+        return false;
     }
     
     public void getRefundRequests(){
@@ -36,7 +43,7 @@ public class Admin extends User{
             //filling data
             System.out.println("Enter a new username");
             username = userInput.nextLine();
-            while(username.length() > 15){
+            while(username.length() > 15 || getUser(username)){
                 System.out.println("Invalid entry for username. Please resubmit.");
                 username = userInput.nextLine();
             }
@@ -75,7 +82,15 @@ public class Admin extends User{
 		            System.out.println("Exception caught. Reattempt submission.");
 	    }
             //attempt to add to user file
-            //-->To be added in later version
+            if(type == "aa"){
+                CentralCore.getUsers().add(new Admin(type, username, credits ));
+            }else if(type == "bs"){
+                CentralCore.getUsers().add(new Standard_Buy(type, username, credits));
+            }else if(type == "ss"){
+                CentralCore.getUsers().add(new Standard_Sell(type, username, credits));
+            }else if(type == "fs"){
+                CentralCore.getUsers().add(new Standard_Full(type, username, credits));
+            }
             createUser_active = false;
         }
         
@@ -85,6 +100,7 @@ public class Admin extends User{
         //Preliminary version. No reading from UserList currently incorporated. Future version will update function to search userList for matching user.
         String username;
         boolean isFound;
+        List<User> userList = CentralCore.getUsers();
         
         Scanner userInput = new Scanner(System.in);
         System.out.println("Enter user to be deleted");
@@ -95,6 +111,11 @@ public class Admin extends User{
         }
         isFound = getUser(username);
         if(isFound == true){
+            for(int i  = 0; i < userList.size(); i++){
+                if(userList.get(i).equals(username)){
+                    userList.remove(i);
+                }
+            }
             String deletionMessageSuccess = String.format("Deleted user with username %s", username);
             System.out.println(deletionMessageSuccess);
         }
