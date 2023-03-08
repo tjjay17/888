@@ -33,8 +33,14 @@ public class CentralCore {
             while((userInput = stdIn.readLine()) != null){
                 //readin user inputs and assess them
                 if(userInput.equals("login")){
-                    System.out.println("login stuff");
-                    //call login
+                    System.out.println("Please enter your username.");
+                    String loginUser = stdIn.readLine();
+                    if(login(loginUser)){
+                        System.out.println("Login successful!");
+                    }else{
+                        System.out.println("Cannot find a user with that name, please try again");
+                    }
+                }else if(userInput.equals("quit")){
                     break;
                 }
             }        
@@ -43,7 +49,16 @@ public class CentralCore {
         }
     }
     
-    public void login(){
+    public static boolean login(String userName){
+        boolean userFound = false;
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getUsername().equals("userName")){
+                userFound = true;
+                activeUser = userList.get(i);
+            }
+        }
+
+        return userFound;
     }
     
     public void logout(){
