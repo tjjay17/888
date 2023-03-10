@@ -18,7 +18,7 @@ public class CentralCore {
     private static List<TransactionStream> transactionList = new ArrayList();
     private static List<TransactionStream> buy_sell_transList = new ArrayList();
     
-    private static User activeUser;
+    private static User activeUser = null;
     
     public static void main(String[] args) throws IOException{
         if(args.length > 0){
@@ -39,17 +39,35 @@ public class CentralCore {
                 if(userInput.equals("Login")){
                     System.out.println("Please enter your username.");
                     String loginUser = stdIn.readLine();
-                    if(login(loginUser)){
-                        System.out.println("Login successful!");
-                    }else{
-                        System.out.println("Cannot find a user with that username");
+                   
+                    while(!login(loginUser)){
+                        System.out.println("No such user can be found, try again or enter 'quit' to stop");
+                        loginUser = stdIn.readLine();
+                        if(loginUser.equals("quit")){
+                            System.out.println("Login attempt ended");
+                            break;
+                        }
                     }
-                }else if(userInput.equals("Quit")){
+
+                    if(activeUser != null){
+                        System.out.println("Login successful");
+                    }
+                }else if(userInput.equals("Quit") && activeUser == null){
                     break;
                 }else if(userInput.equals("c")){
                     getUserOperations();
                 }else if(userInput.equals("Logout")){
                     logout();
+                }else if(userInput.equals("Create") && activeUser != null && activeUser.getUsertype().equals("aa")){
+                    //call admin create
+                }else if(userInput.equals("Delete") && activeUser != null && activeUser.getUsertype().equals("aa")){
+                    //call admin delete
+                else if(userInput.equals("Buy") && activeUser != null && activeUser.getUsertype() != "ss"){
+                    //call the sell method
+                }else if(userInput.equals("Sell") && activeUser != null && activeUser.getUsertype() != "bs"){    
+                    //call the buy method
+                }else if(userInput.equals("AddCredit") && activeUser != null){
+                    //call addcredit
                 }else{
                     System.out.println("Command not understood");
                 }
@@ -78,6 +96,7 @@ public class CentralCore {
     }
     
     public static void logout(){
+        //once the PR for creating a daily trans file is merged, need to call that method here to actually write the daily file
         activeUser = null;
         System.out.println("Logout successful.");
     }
@@ -88,8 +107,14 @@ public class CentralCore {
     public static void getUserOperations(){
         if(activeUser == null){
             System.out.println("Login, Quit");
-        }else if(activeUser != null){
-            System.out.println("Buy, Sell, Logout, Quit, Create, Delete, Addcredit, Refund");
+        }else if(activeUser.getUsertype().equals("aa")){
+            System.out.println("Buy, Sell, Refund, Delete, Create, AddCredit, Logout, c");
+        }else if(activeUser.getUsertype().equals("bs")){
+            System.out.println("Buy, AddCredit, Logout, c");
+        }else if(activeUser.getUsertype().equals("ss")){
+            System.out.println("Sell, AddCredit, Logout, c");
+        }else if(activeUser.getUsertype().equals("fs")){
+            System.out.println("Buy, Sell, AddCredit, Logout, c");
         }
     }
     
