@@ -24,6 +24,8 @@ public class CentralCore {
         if(args.length > 0){
             System.out.println("No args needed.");
         }
+
+        Daily_Transaction_File.createOrUpdateDailyFile();
         
         String userInput = "";
         try(BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))){
@@ -58,6 +60,16 @@ public class CentralCore {
     public static List<Ticket> getTickets(){
         return ticketList;
     }
+
+    public static User findUser(String userName){
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getUsername().equals(userName)){
+                return userList.get(i);
+            }
+        }
+
+        return null;
+    }
     
     public static List<User> getUsers(){
         return userList;
@@ -78,6 +90,7 @@ public class CentralCore {
     public static void addTransaction(int code, String userName, String userType, double credit){
         //add a transaction stream here for refunds
     }
+
 /* uncomment after transactionstream class made
     public TransactionStream getTicketTransaction(){
     
