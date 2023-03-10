@@ -145,7 +145,58 @@ public class CentralCore {
     
     }
 */
+// populate ticketList with tickets from tickets.txt file
+    public static void readTickets() throws FileNotFoundException, IOException{
 
+    	File inputFile = new File("tickets.txt");
+    	BufferedReader reader;
+
+    	reader = new BufferedReader(new FileReader(inputFile));
+    	String currentLine = reader.readLine();
+
+    	while (currentLine.equals("END") != null) {
+	    
+	    	String eventName = currentLine.substring(0,19);
+	    	String sellerUsername = currentLine.substring(20,33);
+	    	int ticketsinStock = Integer.valueOf(currentLine.substring(34,37));
+	    	double ticketPrice = Double.valueOf(currentLine.substring(38,44));
+	    	ticketList.add(new Ticket(eventName, sellerUsername, ticketsinStock, ticketPrice));
+	    	currentLine = reader.readLine();
+    	}
+
+	reader.close();
+    } 
+    
+    // populate userList with users from  users.txt file 
+    
+    public static void readUsers() throws FileNotFoundException, IOException{
+
+    	File inputFile = new File("users.txt");
+    	BufferedReader reader;
+
+    	reader = new BufferedReader(new FileReader(inputFile));
+    	String currentLine = reader.readLine();
+
+    	while (currentLine.equals("END") != null) {
+	    
+	    	String userName = currentLine.substring(0,15);
+	    	String userType = currentLine.substring(16,18);
+	    	double credit = Double.valueOf(currentLine.substring(19,29));
+            
+            if (userType.equals("AA"){
+                userList.add(new Admin (userName, credit));
+            }else if (userType.equals("FS"){
+                userList.add(new Standard_Full (userName, credit));
+            }else if (userType.equals("BS"){
+                userList.add(new Standard_Buy (userName, credit));
+            }else if (userType.equals("BS"){
+                userList.add(new Standard_Buy (userName, credit));
+            }
+	    	currentLine = reader.readLine();
+    	}
+
+	reader.close();
+    } 
     
 }
     
