@@ -1,0 +1,5 @@
+admin            AA 100000.00 
+buyer            BS 50.000000
+seller           SS 100.00000 
+fullStandard     FS 75.000000 
+END 
