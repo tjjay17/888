@@ -1,0 +1,7 @@
+Enter user type: AA
+Login 
+Admin
+Enter buyer’s username (15 characters or less):  Ben
+Enter seller’s username (15 characters or less): Mike
+Enter amount of credit to  transfer (9 digits or less, positive): $50
+Logout
