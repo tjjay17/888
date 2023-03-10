@@ -1,0 +1,7 @@
+Enter user type: AA
+Login 
+Admin
+Input buyer’s username (16 characters or more): aaaaaaaaaaaaaaaaa
+Input seller’s username (16 characters or more): aaaaaaaaaaaaaaaaa
+Input amount of credit to  transfer (10+ digits or negative): -50
+Logout
