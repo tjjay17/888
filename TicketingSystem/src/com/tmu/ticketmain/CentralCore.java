@@ -32,7 +32,6 @@ public class CentralCore {
             System.out.println("Welcome to the ticket system");
             System.out.println("Enter a command, or 'c' for a list of commands.");
 
-
             while((userInput = stdIn.readLine()) != null){
                 //readin user inputs and assess them
                 
@@ -62,7 +61,7 @@ public class CentralCore {
                     //call admin create
                 }else if(userInput.equals("Delete") && activeUser != null && activeUser.getUsertype().equals("aa")){
                     //call admin delete
-                else if(userInput.equals("Buy") && activeUser != null && activeUser.getUsertype() != "ss"){
+                }else if(userInput.equals("Buy") && activeUser != null && activeUser.getUsertype() != "ss"){
                     //call the sell method
                 }else if(userInput.equals("Sell") && activeUser != null && activeUser.getUsertype() != "bs"){    
                     //call the buy method
@@ -147,7 +146,6 @@ public class CentralCore {
     }
 */
 
-
-    
     
 }
+    
