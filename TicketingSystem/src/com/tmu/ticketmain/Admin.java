@@ -80,18 +80,7 @@ public class Admin extends User{
             }
             catch (Exception e) {
 		            System.out.println("Exception caught. Reattempt submission.");
-	    }
-            //attempt to add to user file
-            if(type == "aa"){
-                CentralCore.getUsers().add(new Admin(type, username, credits ));
-            }else if(type == "bs"){
-                CentralCore.getUsers().add(new Standard_Buy(type, username, credits));
-            }else if(type == "ss"){
-                CentralCore.getUsers().add(new Standard_Sell(type, username, credits));
-            }else if(type == "fs"){
-                CentralCore.getUsers().add(new Standard_Full(type, username, credits));
-            }
-            createUser_active = false;
+	        }
         }
         
     }
