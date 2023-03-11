@@ -11,6 +11,7 @@ public class Daily_Transaction_File {
     private static final String addCreditCode = "06";
     private static final String endOfSessionCode = "00";
 
+    //var used to track the last transaction written in the session - no need to rewrite multiple transactions in file
     static int lastTransWrittenPtr = 0;
 
     public static void createOrUpdateDailyFile(){
