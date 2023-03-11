@@ -119,7 +119,7 @@ public abstract class User {
 							       
 		                                           //Save this information in the dailytransaction file and buy/sell transaction file
 		                                           
-		                                           CentralCore.addTransaction(04, eventName, sellerUsername, ticketQuantity, CentralCore.getTickets().get(i).getTicketPrice());
+		                                           CentralCore.addSellTransaction(04, eventName, sellerUsername, ticketQuantity, CentralCore.getTickets().get(i).getTicketPrice());
 		                                           CentralCore.addBuySellTransaction(04, eventName, sellerUsername, ticketQuantity, CentralCore.getTickets().get(i).getTicketPrice());
 		                                           break;
 		                                           
@@ -222,7 +222,7 @@ public abstract class User {
 			     
 		         //Save this information in the dailytransaction file and buy/sell transaction file
 		              
-		         CentralCore.addTransaction(03, eventName, this.username, ticketQuantity, salePrice);
+		         CentralCore.addBuyTransaction(03, eventName, this.username, ticketQuantity, salePrice);
 		         CentralCore.addBuySellTransaction(03, eventName, this.username, ticketQuantity, salePrice);
 		         break;
 		     }else{
@@ -275,7 +275,7 @@ public abstract class User {
 			    
 		        flag = false;
 			//Save this information in the dailytransaction file
-			CentralCore.addTransaction(06, this.username, this.usertype, credit_to_add);    
+			CentralCore.addCreditTransaction(06, this.username, credit_to_add);    
 			break;
 		    } else {
 				System.out.println("The amount entered is not correct!");

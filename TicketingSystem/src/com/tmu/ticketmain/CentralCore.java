@@ -13,10 +13,10 @@ import java.util.ArrayList;
  * @author Tj
  */
 public class CentralCore {
-    private static List<Ticket> ticketList = new ArrayList();
-    private static List<User> userList = new ArrayList();
-    private static List<DailyTransaction> transactionList = new ArrayList();
-    private static List<DailyTransaction> buy_sell_transList = new ArrayList();
+    private static List<Ticket> ticketList = new ArrayList<Ticket>();
+    private static List<User> userList = new ArrayList<User>();
+    private static List<DailyTransaction> transactionList = new ArrayList<DailyTransaction>();
+    private static List<DailyTransaction> buy_sell_transList = new ArrayList<DailyTransaction>();
     
     private static User activeUser = null;
     
@@ -25,7 +25,8 @@ public class CentralCore {
             System.out.println("No args needed.");
         }
 
-        Daily_Transaction_File.createOrUpdateDailyFile();
+        readTickets();
+        readUsers();
         
         String userInput = "";
         boolean firstRun = true;
@@ -99,11 +100,14 @@ public class CentralCore {
     public static void logout(){
         //once the PR for creating a daily trans file is merged, need to call that method here to actually write the daily file
         activeUser = null;
+        addSessionEndTransaction(0);
+        Daily_Transaction_File.createOrUpdateDailyFile();
+
         System.out.println("Logout successful.");
     }
     
-    public void createDailyTransaction(int transCode, String userName, String userType, int userCredit){
-    }
+    // public void createDailyTransaction(int transCode, String userName, String userType, int userCredit){
+    // }
     
     public static void getUserOperations(){
         if(activeUser == null){
@@ -141,17 +145,33 @@ public class CentralCore {
         return transactionList;
     }
     
-    public static void addTransaction(int code, String eventName, String sellerUser, int ticketQuantity, double price){
+    public static void addSellTransaction(int code, String eventName, String sellerUser, int ticketQuantity, double price){
         transactionList.add(new DailyTransaction(code, eventName, sellerUser, ticketQuantity, price));
     }
+
+    public static void addBuyTransaction(int code, String eventName, String buyerUser, int ticketQuantity, double price){
+        transactionList.add(new DailyTransaction(code, eventName, buyerUser, ticketQuantity, price));
+    }
+
+    public static void addCreditTransaction(int code, String addCredUser, double credit){
+        transactionList.add(new DailyTransaction(code, addCredUser, credit));
+    }
     
+    public static void addRefundTransaction(int code, double refund, String buyerUser, String sellerUser){
+        transactionList.add(new DailyTransaction(code, refund, buyerUser, sellerUser));
+    }
+
+    public static void addSessionEndTransaction(int code){
+        transactionList.add(new DailyTransaction(0));
+    }
+
     public static void addBuySellTransaction(int code, String eventName, String sellerUser, int ticketQuantity, double price){
         buy_sell_transList.add(new DailyTransaction(code, eventName, sellerUser, ticketQuantity, price));
     }
     
-    public static void addTransaction(int code, String userName, String userType, double credit){
-        //add a transaction stream here for refunds
-    }
+    // public static void addTransaction(int code, String userName, String userType, double credit){
+    //     //add a transaction stream here for refunds
+    // }
 
 /* uncomment after transactionstream class made
     public TransactionStream getTicketTransaction(){
@@ -167,8 +187,7 @@ public class CentralCore {
     	reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
-    	while (currentLine.equals("END") != null) {
-	    
+    	while (!currentLine.equals("END")) {
 	    	String eventName = currentLine.substring(0,19);
 	    	String sellerUsername = currentLine.substring(20,33);
 	    	int ticketsinStock = Integer.valueOf(currentLine.substring(34,37));
@@ -190,20 +209,20 @@ public class CentralCore {
     	reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
-    	while (currentLine.equals("END") != null) {
+    	while (!currentLine.equals("END")) {
 	    
 	    	String userName = currentLine.substring(0,15);
 	    	String userType = currentLine.substring(16,18);
 	    	double credit = Double.valueOf(currentLine.substring(19,29));
             
-            if (userType.equals("AA"){
-                userList.add(new Admin (userName, credit));
-            }else if (userType.equals("FS"){
-                userList.add(new Standard_Full (userName, credit));
-            }else if (userType.equals("BS"){
-                userList.add(new Standard_Buy (userName, credit));
-            }else if (userType.equals("BS"){
-                userList.add(new Standard_Buy (userName, credit));
+            if (userType.equals("AA")){
+                userList.add(new Admin ("AA", userName, credit));
+            }else if (userType.equals("FS")){
+                userList.add(new Standard_Full ("FS", userName, credit));
+            }else if (userType.equals("BS")){
+                userList.add(new Standard_Buy ("FS", userName, credit));
+            }else if (userType.equals("SS")){
+                userList.add(new Standard_Sell ("SS", userName, credit));
             }
 	    	currentLine = reader.readLine();
     	}

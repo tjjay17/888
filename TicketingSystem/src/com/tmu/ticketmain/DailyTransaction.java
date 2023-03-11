@@ -14,7 +14,6 @@ public class DailyTransaction {
     private int code;
     private String eventName;
     private String sellerUser;
-    private String refundUser;
     private String addCredUser;
     private String buyerUser;
     private int ticketQuantity;
@@ -23,22 +22,17 @@ public class DailyTransaction {
     private double refund;
     
     //for a sell
-    DailyTransaction(int code, String eventName, String sellerUser, int ticketQuantity, double price){
+    DailyTransaction(int code, String eventName, String transUser, int ticketQuantity, double price){
         this.code = code;
         this.eventName = eventName;
-        this.sellerUser = sellerUser;
         this.ticketQuantity = ticketQuantity;
         this.price = price;
-    }
-    
-    //for a buy transaction
-    DailyTransaction(int code, String eventName, String sellerUser, String buyerUser, int ticketQuantity, double price){
-        this.code = code;
-        this.eventName = eventName;
-        this.sellerUser = sellerUser;
-        this.buyerUser = buyerUser;
-        this.ticketQuantity = ticketQuantity;
-        this.price = price;
+
+        if(code == 3){
+            this.buyerUser = transUser;
+        }else if(code == 4){
+            this.sellerUser = transUser;
+        }
     }
 
     //add credit
@@ -49,9 +43,10 @@ public class DailyTransaction {
     }
 
     //refunds
-    DailyTransaction(int code, double refund, String refundUser){
+    DailyTransaction(int code, double refund, String buyerUser, String sellerUser){
         this.code = code;
-        this.refundUser = refundUser;
+        this.buyerUser = buyerUser;
+        this.sellerUser = sellerUser;
         this.refund = refund;
     }
 
@@ -82,10 +77,6 @@ public class DailyTransaction {
 
     public String getBuyerUser(){
         return this.buyerUser;
-    }
-
-    public String getRefundUser(){
-        return this.refundUser;
     }
 
     public String getAddCredUser(){

@@ -16,14 +16,14 @@ public class Daily_Transaction_File {
         String year = Integer.toString(d.getYear());
         String month = Integer.toString(d.getMonth());
         String date = Integer.toString(d.getDate());
-        List<TransactionStream> transList = CentralCore.getTransactions();
+        List<DailyTransaction> transList = CentralCore.getTransactions();
 
         File dtf = new File("../DailyTransactionFiles/dtf" + year + "_" + month + "_" + date + ".txt");
         try{
             FileWriter fw = new FileWriter(dtf, true);
             for(int i = 0; i < transList.size(); i++){
-                TransactionStream currentTrans = transList.get(i);
-                if(currentTrans.getCode() == 1 || currentTrans.getCode() == 2){
+                DailyTransaction currentTrans = transList.get(i);
+                if(currentTrans.getCode() == 1 || currentTrans.getCode() == 2 || currentTrans.getCode() == 6 || currentTrans.getCode() == 0){
                     String codeToUse = deleteCode;
                     if(currentTrans.getCode() == 1){
                         codeToUse = createCode;
