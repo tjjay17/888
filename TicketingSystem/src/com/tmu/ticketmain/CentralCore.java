@@ -100,8 +100,11 @@ public class CentralCore {
     
     public static void logout(){
         //once the PR for creating a daily trans file is merged, need to call that method here to actually write the daily file
-        activeUser = null;
+        System.out.println(activeUser.getUsername());
+        System.out.println(activeUser.getUsertype());
+        System.out.println(activeUser.getCredit());
         addSessionEndTransaction(0, activeUser.getUsername(), activeUser.getUsertype(), activeUser.getCredit());
+        activeUser = null;
         Daily_Transaction_File.createOrUpdateDailyFile();
 
         System.out.println("Logout successful.");
