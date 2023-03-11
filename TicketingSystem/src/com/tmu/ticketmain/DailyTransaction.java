@@ -16,6 +16,9 @@ public class DailyTransaction {
     private String sellerUser;
     private String addCredUser;
     private String buyerUser;
+    private String generalUser;
+    private String userType;
+
     private int ticketQuantity;
     private double price;
     private double credit;
@@ -51,8 +54,12 @@ public class DailyTransaction {
     }
 
     //can be used for logout
-    DailyTransaction(int code){
+    DailyTransaction(int code, String generalUser, String userType, double credit){
         this.code = code;
+        this.generalUser = generalUser;
+        this.userType = userType;
+        this.credit = credit;
+
     }
 
     public int getCode(){
