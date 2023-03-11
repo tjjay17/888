@@ -154,7 +154,7 @@ public class CentralCore {
     	reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
-    	while (currentLine.equals("END") != null) {
+    	while (currentLine.equals("END")) {
 	    
 	    	String eventName = currentLine.substring(0,19);
 	    	String sellerUsername = currentLine.substring(20,33);
@@ -177,20 +177,18 @@ public class CentralCore {
     	reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
-    	while (currentLine.equals("END") != null) {
+    	while (currentLine.equals("END")) {
 	    
 	    	String userName = currentLine.substring(0,15);
 	    	String userType = currentLine.substring(16,18);
 	    	double credit = Double.valueOf(currentLine.substring(19,29));
             
-            if (userType.equals("AA"){
-                userList.add(new Admin (userName, credit));
-            }else if (userType.equals("FS"){
-                userList.add(new Standard_Full (userName, credit));
-            }else if (userType.equals("BS"){
-                userList.add(new Standard_Buy (userName, credit));
-            }else if (userType.equals("BS"){
-                userList.add(new Standard_Buy (userName, credit));
+            if (userType.equals("AA")){
+                userList.add(new Admin ("AA", userName, credit));
+            }else if (userType.equals("FS")){
+                userList.add(new Standard_Full ("FS", userName, credit));
+            }else if (userType.equals("BS")){
+                userList.add(new Standard_Buy ("BS", userName, credit));
             }
 	    	currentLine = reader.readLine();
     	}
