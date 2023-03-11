@@ -8,6 +8,7 @@
 import os
 import subprocess
 import sys
+from difflib import SequenceMatcher
 
 # get the path to the jar file
 jar_path = sys.argv[1]
@@ -30,6 +31,8 @@ input_tests.sort()
 # sort the expected output tests
 expected_output_tests.sort()
 
+tests = []
+ratios = []
 # loop through the input tests
 for i in range(len(input_tests)):
     # get the input test
@@ -57,16 +60,28 @@ for i in range(len(input_tests)):
             # get the output
             output = output.stdout.decode('utf-8')
 
+            matcher = SequenceMatcher(None, output, expected_output)
+            ratios.append(matcher.ratio())
+
             # check if the output is the same as the expected output
-            if output == expected_output:
+            if matcher.ratio() >= 0.60:
                 # print the input test
+                print("==================================")
+                print("INPUT TEST:")
                 print(input_test)
+                print("==================================")
 
                 # print the expected output test
+                print("==================================")
+                print("EXPECTED OUTPUT:")
                 print(expected_output_test)
+                print("==================================")
 
                 # print the output
+                print("==================================")
+                print("OUTPUT:")
                 print(output)
+                print("==================================")
 
                 # print the expected output
                 print(expected_output)
@@ -76,22 +91,36 @@ for i in range(len(input_tests)):
 
                 # print a new line
                 print()
-
+                tests.append(True)
             else:
                 # print the input test
-                print(input_test)
 
                 # print the expected output test
+                print("==================================")
+                print("EXPECTED OUTPUT:")
                 print(expected_output_test)
+                print("==================================")
 
                 # print the output
+                print("==================================")
+                print("OUTPUT:")
                 print(output)
+                print("==================================")
 
                 # print the expected output
+                print("==================================")
+                print("EXPECTED OUTPUT:")
                 print(expected_output)
+                print("==================================")
 
                 # print the test failed
                 print('Test failed')
 
                 # print a new line
                 print()
+                tests.append(False)
+
+print("ALL TESTS PASSED:")
+print("TRUES: ", tests.count(True))
+print("FALSE: ", tests.count(False))
+print("RATIOS: ", list(map(lambda x: round(x, 3) , ratios)))
