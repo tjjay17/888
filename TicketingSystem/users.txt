@@ -1,5 +1,9 @@
-admin            AA 100000.00 
-buyer            BS 50.000000
-seller           SS 100.00000 
-fullStandard     FS 75.000000 
+admin           AA 100000.00 
+buyer           BS 50.000000
+seller          SS 100.00000 
+fullStandard    FS 75.000000 
+Arnold          FS 200.00000
+Thanooj         FS 200.00000
+Daniel          FS 200.00000
+Sarah           BS 300.00000
 END 

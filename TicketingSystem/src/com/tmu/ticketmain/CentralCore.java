@@ -13,10 +13,10 @@ import java.util.ArrayList;
  * @author Tj
  */
 public class CentralCore {
-    private static List<Ticket> ticketList = new ArrayList();
-    private static List<User> userList = new ArrayList();
-    private static List<TransactionStream> transactionList = new ArrayList();
-    private static List<TransactionStream> buy_sell_transList = new ArrayList();
+    private static List<Ticket> ticketList = new ArrayList<Ticket>();
+    private static List<User> userList = new ArrayList<User>();
+    private static List<DailyTransaction> transactionList = new ArrayList<DailyTransaction>();
+    private static List<DailyTransaction> buy_sell_transList = new ArrayList<DailyTransaction>();
     
     private static User activeUser = null;
     
@@ -24,16 +24,20 @@ public class CentralCore {
         if(args.length > 0){
             System.out.println("No args needed.");
         }
+
+        readTickets();
+        readUsers();
         
         String userInput = "";
         boolean firstRun = true;
         try(BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))){
             //prompts can be changed
             System.out.println("Welcome to the ticket system");
-            System.out.println("Enter a command, or 'c' for a list of commands.");
 
-            while((userInput = stdIn.readLine()) != null){
+            while(true){
                 //readin user inputs and assess them
+                System.out.println("Enter a command, or 'Commands' for a list of commands.");
+                userInput = stdIn.readLine();
                 
                 if(userInput.equals("Login")){
                     System.out.println("Please enter your username.");
@@ -53,7 +57,7 @@ public class CentralCore {
                     }
                 }else if(userInput.equals("Quit") && activeUser == null){
                     break;
-                }else if(userInput.equals("c")){
+                }else if(userInput.equals("Commands")){
                     getUserOperations();
                 }else if(userInput.equals("Logout")){
                     logout();
@@ -71,11 +75,11 @@ public class CentralCore {
                     System.out.println("Command not understood");
                 }
 
-                if(firstRun){
-                    firstRun = false; 
-                 }else{
-                     System.out.println("Enter a command, or 'c' for a list of commands.");
-                 }
+                // if(firstRun){
+                //     firstRun = false; 
+                //  }else{
+                //      System.out.println("Enter a command, or 'c' for a list of commands.");
+                //  }
             }        
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -85,7 +89,7 @@ public class CentralCore {
     public static boolean login(String userName){
         boolean userFound = false;
         for(int i = 0; i < userList.size(); i++){
-            if(userList.get(i).getUsername().equals("userName")){
+            if(userList.get(i).getUsername().equals(userName)){
                 userFound = true;
                 activeUser = userList.get(i);
             }
@@ -96,50 +100,83 @@ public class CentralCore {
     
     public static void logout(){
         //once the PR for creating a daily trans file is merged, need to call that method here to actually write the daily file
+        System.out.println(activeUser.getUsername());
+        System.out.println(activeUser.getUsertype());
+        System.out.println(activeUser.getCredit());
+        addSessionEndTransaction(0, activeUser.getUsername(), activeUser.getUsertype(), activeUser.getCredit());
         activeUser = null;
+        Daily_Transaction_File.createOrUpdateDailyFile();
+
         System.out.println("Logout successful.");
     }
     
-    public void createDailyTransaction(int transCode, String userName, String userType, int userCredit){
-    }
+    // public void createDailyTransaction(int transCode, String userName, String userType, int userCredit){
+    // }
     
     public static void getUserOperations(){
         if(activeUser == null){
             System.out.println("Login, Quit");
-        }else if(activeUser.getUsertype().equals("aa")){
-            System.out.println("Buy, Sell, Refund, Delete, Create, AddCredit, Logout, c");
-        }else if(activeUser.getUsertype().equals("bs")){
-            System.out.println("Buy, AddCredit, Logout, c");
-        }else if(activeUser.getUsertype().equals("ss")){
-            System.out.println("Sell, AddCredit, Logout, c");
-        }else if(activeUser.getUsertype().equals("fs")){
-            System.out.println("Buy, Sell, AddCredit, Logout, c");
+        }else if(activeUser.getUsertype().equals("AA")){
+            System.out.println("Buy, Sell, Refund, Delete, Create, AddCredit, Logout, Commands");
+        }else if(activeUser.getUsertype().equals("BS")){
+            System.out.println("Buy, AddCredit, Logout, Commands");
+        }else if(activeUser.getUsertype().equals("SS")){
+            System.out.println("Sell, AddCredit, Logout, Commands");
+        }else if(activeUser.getUsertype().equals("FS")){
+            System.out.println("Buy, Sell, AddCredit, Logout, Commands");
         }
     }
     
     public static List<Ticket> getTickets(){
         return ticketList;
     }
+
+    public static User findUser(String userName){
+        for(int i = 0; i < userList.size(); i++){
+            if(userList.get(i).getUsername().equals(userName)){
+                return userList.get(i);
+            }
+        }
+
+        return null;
+    }
     
     public static List<User> getUsers(){
         return userList;
     }
     
-    public static List<TransactionStream> getTransactions(){
+    public static List<DailyTransaction> getTransactions(){
         return transactionList;
     }
     
-    public static void addTransaction(int code, String eventName, String sellerUser, int ticketQuantity, double price){
-        transactionList.add(new TransactionStream(code, eventName, sellerUser, ticketQuantity, price));
+    public static void addSellTransaction(int code, String eventName, String sellerUser, int ticketQuantity, double price){
+        transactionList.add(new DailyTransaction(code, eventName, sellerUser, ticketQuantity, price));
+    }
+
+    public static void addBuyTransaction(int code, String eventName, String buyerUser, int ticketQuantity, double price){
+        transactionList.add(new DailyTransaction(code, eventName, buyerUser, ticketQuantity, price));
+    }
+
+    public static void addCreditTransaction(int code, String addCredUser, double credit){
+        transactionList.add(new DailyTransaction(code, addCredUser, credit));
     }
     
+    public static void addRefundTransaction(int code, double refund, String buyerUser, String sellerUser){
+        transactionList.add(new DailyTransaction(code, refund, buyerUser, sellerUser));
+    }
+
+    public static void addSessionEndTransaction(int code, String generalUser, String userType, double credit){
+        transactionList.add(new DailyTransaction(code, generalUser, userType, credit ));
+    }
+
     public static void addBuySellTransaction(int code, String eventName, String sellerUser, int ticketQuantity, double price){
-        buy_sell_transList.add(new TransactionStream(code, eventName, sellerUser, ticketQuantity, price));
+        buy_sell_transList.add(new DailyTransaction(code, eventName, sellerUser, ticketQuantity, price));
     }
     
-    public static void addTransaction(int code, String userName, String userType, double credit){
-        //add a transaction stream here for refunds
-    }
+    // public static void addTransaction(int code, String userName, String userType, double credit){
+    //     //add a transaction stream here for refunds
+    // }
+
 /* uncomment after transactionstream class made
     public TransactionStream getTicketTransaction(){
     
@@ -148,18 +185,18 @@ public class CentralCore {
 // populate ticketList with tickets from tickets.txt file
     public static void readTickets() throws FileNotFoundException, IOException{
 
-    	File inputFile = new File("tickets.txt");
-    	BufferedReader reader;
-
-    	reader = new BufferedReader(new FileReader(inputFile));
+    	File inputFile = new File("../tickets.txt");
+    	BufferedReader reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
-    	while (currentLine.equals("END")) {
-	    
-	    	String eventName = currentLine.substring(0,19);
-	    	String sellerUsername = currentLine.substring(20,33);
-	    	int ticketsinStock = Integer.valueOf(currentLine.substring(34,37));
-	    	double ticketPrice = Double.valueOf(currentLine.substring(38,44));
+    	while (!currentLine.equals("END")) {
+            if(currentLine.trim().equals("END")){
+                break;
+            }
+	    	String eventName = currentLine.substring(0,26).trim();
+	    	String sellerUsername = currentLine.substring(26,40).trim();
+	    	int ticketsinStock = Integer.valueOf(currentLine.substring(41,44).trim());
+	    	double ticketPrice = Double.valueOf(currentLine.substring(45,51).trim());
 	    	ticketList.add(new Ticket(eventName, sellerUsername, ticketsinStock, ticketPrice));
 	    	currentLine = reader.readLine();
     	}
@@ -171,24 +208,26 @@ public class CentralCore {
     
     public static void readUsers() throws FileNotFoundException, IOException{
 
-    	File inputFile = new File("users.txt");
-    	BufferedReader reader;
-
-    	reader = new BufferedReader(new FileReader(inputFile));
+    	File inputFile = new File("../users.txt");
+    	BufferedReader reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
-    	while (currentLine.equals("END")) {
-	    
-	    	String userName = currentLine.substring(0,15);
-	    	String userType = currentLine.substring(16,18);
-	    	double credit = Double.valueOf(currentLine.substring(19,29));
+    	while (true) {
+            if(currentLine.trim().equals("END")){
+                break;
+            }
+	    	String userName = currentLine.substring(0,16).trim();
+	    	String userType = currentLine.substring(16,19).trim();
+	    	double credit = Double.valueOf(currentLine.substring(19,28).trim());
             
             if (userType.equals("AA")){
                 userList.add(new Admin ("AA", userName, credit));
             }else if (userType.equals("FS")){
                 userList.add(new Standard_Full ("FS", userName, credit));
             }else if (userType.equals("BS")){
-                userList.add(new Standard_Buy ("BS", userName, credit));
+                userList.add(new Standard_Buy ("FS", userName, credit));
+            }else if (userType.equals("SS")){
+                userList.add(new Standard_Sell ("SS", userName, credit));
             }
 	    	currentLine = reader.readLine();
     	}
