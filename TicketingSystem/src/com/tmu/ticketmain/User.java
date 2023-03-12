@@ -275,7 +275,7 @@ public abstract class User {
 			    
 		        flag = false;
 			//Save this information in the dailytransaction file
-			CentralCore.addCreditTransaction(06, this.username, credit_to_add);    
+			CentralCore.addCreditTransaction(this.username, credit_to_add, 6, this.usertype);    
 			break;
 		    } else {
 				System.out.println("The amount entered is not correct!");

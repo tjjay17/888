@@ -24,9 +24,13 @@ public class Daily_Transaction_File {
 
         //file format - dtf_year_month_date.txt
         File dtf = new File("../DailyTransactionFiles/dtf" + "_" +  year + "_" + month + "_" + date + ".txt");
+        
         try{
             BufferedWriter fw = new BufferedWriter( new FileWriter(dtf, true));
+            BufferedReader br = new BufferedReader(new FileReader(dtf));
+
             for(int i = lastTransWrittenPtr; i < transList.size(); i++){
+
                 DailyTransaction currentTrans = transList.get(i);
                 //create or delete
                 if(currentTrans.getCode() == 1 || currentTrans.getCode() == 2){
@@ -35,9 +39,7 @@ public class Daily_Transaction_File {
                     String transUsername = currentTrans.getGenUser();
                     User transUser = CentralCore.findUser(transUsername);
                     String dtfLine = codeToUse + "_" + currentTrans.getGenUser() + "_" + transUser.getUsertype() + "_" + transUser.getCredit();
-                    if(dtf.length() != 0){
-                        fw.newLine();
-                    }
+
                     fw.append(dtfLine);
                 //add credit
                 }else if(currentTrans.getCode() == 6){
@@ -46,9 +48,7 @@ public class Daily_Transaction_File {
                     //this assumes that we use the price field as the credit amount
                     String credit = Double.toString(currentTrans.getCredit());
                     String dtfLine = addCreditCode + "_" + addCredUser + "_" + transUser.getUsertype() + "_" + credit;
-                    if(dtf.length() != 0){
-                        fw.newLine();
-                    }
+
                     fw.append(dtfLine);
                 //buy or sell
                 }else if(currentTrans.getCode() == 3 || currentTrans.getCode() == 4){
@@ -59,32 +59,28 @@ public class Daily_Transaction_File {
                     String numberTicketsSale = Integer.toString(currentTrans.getTicketQuantity());
                     String pricePerTicket = Double.toString(currentTrans.getPrice());
                     String dtfLine = codeToUse + "_" + eventName + "_" + sellerUserName + "_" + numberTicketsSale + "_" + pricePerTicket;
-                    if(dtf.length() != 0){
-                        fw.newLine();
-                    }
+
                     fw.append(dtfLine);
                 }else if(currentTrans.getCode() == 5){
                     String buyerUser = currentTrans.getBuyerUser();
                     String sellerUser = currentTrans.getSellerUser();
                     double refund = currentTrans.getRefund();
                     String dtfLine = refundCode + "_" + buyerUser +  "_" + sellerUser + "_" + refund; 
-                    if(dtf.length() != 0){
-                        fw.newLine();
-                    }
+
                     fw.append(dtfLine);
                 }else if(currentTrans.getCode() == 0){
                     String userName = currentTrans.getGenUser();
                     String userType = CentralCore.findUser(userName).getUsertype();
                     double credit = currentTrans.getCredit();
                     String dtfLine = endOfSessionCode + "_" + userName + "_" + userType + "_" + credit;
-                    if(dtf.length() != 0){
-                        fw.newLine();
-                    }
+
                     fw.append(dtfLine);
                 }
                 lastTransWrittenPtr++;
+                fw.newLine();
             }
             fw.close();
+            br.close();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
