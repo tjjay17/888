@@ -53,13 +53,18 @@ for i in range(len(input_tests)):
         with open(expected_output_test_path, 'r') as expected_output_test_file:
             # get the expected output
             expected_output = expected_output_test_file.read()
+            text = input_test_file.read()
+            # strip text and put \n at the end of each line
+            text = text.strip()
+            text = text.splitlines()
 
+            text = list(map(lambda x: x + "\n", text))
+            text = "".join(text)
             # execute the jar file
-            output = subprocess.run(['java', '-jar', jar_path], stdin=input_test_file, stdout=subprocess.PIPE)
+            output = subprocess.run(['java', '-jar', jar_path], input=text,  text=True, capture_output=True)
 
             # get the output
-            output = output.stdout.decode('utf-8')
-
+            output = output.stdout
             matcher = SequenceMatcher(None, output, expected_output)
             ratios.append(matcher.ratio())
 
