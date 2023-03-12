@@ -299,19 +299,19 @@ public class Admin extends User {
 //                userList.add(formatted);
                 switch (type) {
                     case "aa":
-                        storedList.add(new Admin(type, username, credits));
+                        storedList.add(new Admin(type.toUpperCase(), username, credits));
                         CentralCore.addCreateUserTransaction(01, username, type.toUpperCase(), credits);
                         break;
                     case "fs":
-                        storedList.add(new Standard_Full(type, username, credits));
+                        storedList.add(new Standard_Full(type.toUpperCase(), username, credits));
                         CentralCore.addCreateUserTransaction(01, username, type.toUpperCase(), credits);
                         break;
                     case "sb":
-                        storedList.add(new Standard_Buy(type, username, credits));
+                        storedList.add(new Standard_Buy(type.toUpperCase(), username, credits));
                         CentralCore.addCreateUserTransaction(01, username, type.toUpperCase(), credits);
                         break;
                     case "ss":
-                        storedList.add(new Standard_Sell(type, username, credits));
+                        storedList.add(new Standard_Sell(type.toUpperCase(), username, credits));
                         CentralCore.addCreateUserTransaction(01, username, type.toUpperCase(), credits);
                         break;
                 }
@@ -430,43 +430,45 @@ public class Admin extends User {
                         String foundRequests = String.format("Found %d new requests.", refundList.size());
                         System.out.println(foundRequests);
                         for (i = 0; i < refundList.size(); i++) {
-                            String promptRequest = String.format("Accept request %s ?", refundList.get(i));
-                            System.out.println(promptRequest);
-                            prompt = userInput.nextLine();
-                            //sloppy logic but this was at 4:30 am
-                            promptCheck1 = prompt.toLowerCase().equals("yes");
-                            promptCheck2 = prompt.toLowerCase().equals("no");
-                            while (promptCheck1 == false && promptCheck2 == false) {
-                                System.out.println("Invalid entry. Please resubmit.");
+                            while (refundList.size() > 0) {
+                                String promptRequest = String.format("Accept request %s ?", refundList.get(i));
+                                System.out.println(promptRequest);
                                 prompt = userInput.nextLine();
-                            }
-                            switch (prompt) {
-                                case "yes":
-                                    //adding credit
-                                    sellerPos = getPosition(refundRequestList.get(i).getSellerName(), userList);
-                                    buyerPos = getPosition(refundRequestList.get(i).getBuyerName(), userList);
-                                    double tempBuyer = refundRequestList.get(i).getBuyerCredits() + refundRequestList.get(i).getRefundAmount();
-                                    buyerCredit = tempBuyer;
-                                    storedList.get(buyerPos).setCredit(buyerCredit);
-                                    //subtracting credit
-                                    double tempSeller = refundRequestList.get(i).getSellerCredits() - refundRequestList.get(i).getRefundAmount();
-                                    sellerCredit = tempSeller;
-                                    storedList.get(sellerPos).setCredit(sellerCredit);
-                                    CentralCore.addRefundTransaction(05, refundRequestList.get(i).getBuyerName(), refundRequestList.get(i).getSellerName(), refundRequestList.get(i).getRefundAmount());
-                                    //confirmation message
-                                    String successfulAdded = String.format("Successfully added %.2f to %s wallet, resulting in %.2f", refundRequestList.get(i).getRefundAmount(), buyer, buyerCredit);
-                                    System.out.println(successfulAdded);
-                                    String successfulSubtracted = String.format("Successfully subtracted %.2f from %s wallet, resulting in %.2f", refundRequestList.get(i).getRefundAmount(), seller, sellerCredit);
-                                    System.out.println(successfulSubtracted);
-                                    refundList.remove(i);
-                                    refundRequestList.remove(i);
-                                    break;
-                                case "no":
-                                    String rejectRequest = String.format("Rejected request %s ", refundList.get(i));
-                                    System.out.println(rejectRequest);
-                                    refundList.remove(i);
-                                    refundRequestList.remove(i);
-                                    break;
+                                //sloppy logic but this was at 4:30 am
+                                promptCheck1 = prompt.toLowerCase().equals("yes");
+                                promptCheck2 = prompt.toLowerCase().equals("no");
+                                while (promptCheck1 == false && promptCheck2 == false) {
+                                    System.out.println("Invalid entry. Please resubmit.");
+                                    prompt = userInput.nextLine();
+                                }
+                                switch (prompt) {
+                                    case "yes":
+                                        //adding credit
+                                        sellerPos = getPosition(refundRequestList.get(i).getSellerName(), userList);
+                                        buyerPos = getPosition(refundRequestList.get(i).getBuyerName(), userList);
+                                        double tempBuyer = refundRequestList.get(i).getBuyerCredits() + refundRequestList.get(i).getRefundAmount();
+                                        buyerCredit = tempBuyer;
+                                        storedList.get(buyerPos).setCredit(buyerCredit);
+                                        //subtracting credit
+                                        double tempSeller = refundRequestList.get(i).getSellerCredits() - refundRequestList.get(i).getRefundAmount();
+                                        sellerCredit = tempSeller;
+                                        storedList.get(sellerPos).setCredit(sellerCredit);
+                                        CentralCore.addRefundTransaction(05, refundRequestList.get(i).getBuyerName(), refundRequestList.get(i).getSellerName(), refundRequestList.get(i).getRefundAmount());
+                                        //confirmation message
+                                        String successfulAdded = String.format("Successfully added %.2f to %s wallet, resulting in %.2f", refundRequestList.get(i).getRefundAmount(), refundRequestList.get(i).getBuyerName(), buyerCredit);
+                                        System.out.println(successfulAdded);
+                                        String successfulSubtracted = String.format("Successfully subtracted %.2f from %s wallet, resulting in %.2f", refundRequestList.get(i).getRefundAmount(), refundRequestList.get(i).getSellerName(), sellerCredit);
+                                        System.out.println(successfulSubtracted);
+                                        refundList.remove(i);
+                                        refundRequestList.remove(i);
+                                        break;
+                                    case "no":
+                                        String rejectRequest = String.format("Rejected request %s ", refundList.get(i));
+                                        System.out.println(rejectRequest);
+                                        refundList.remove(i);
+                                        refundRequestList.remove(i);
+                                        break;
+                                }
                             }
                         }
                     }

@@ -159,7 +159,6 @@ public class Standard_Sell extends User {
 
             switch (operation) {
                 case "cancel":
-                    userInput.close();
                     refundRequest_active = false;
                     break;
                 case "new refund":
