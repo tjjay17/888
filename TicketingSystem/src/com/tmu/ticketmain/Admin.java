@@ -497,49 +497,9 @@ public class Admin extends User {
                         buyerPos = getPosition(buyer, userList);
                     }
                     //seller wallet
-                    System.out.println("Enter the seller credit amount");
-                    do {
-                        if (userInput.hasNextDouble()) {
-                            sellerCredit = userInput.nextDouble();
-                            userInput.nextLine();
-                            sellerChecked = checkCredits(sellerCredit, sellerPos, storedList);
-                            if (sellerChecked == false) {
-                                System.out.println("Incorrect seller credit. Please resubmit.");
-                                validInput = false;
-                            } else {
-                                validInput = true;
-                                break;
-                            }
-                        } else {
-                            System.out.println("Invalid entry for credit. Please resubmit.");
-                            validInput = false;
-                            userInput.next();
-                        }
-                    } while (!(validInput));
-                    validInput = false;
+                    sellerCredit = storedList.get(sellerPos).getCredit();
                     //buyer wallet
-                    System.out.println("Enter the buyer credit amount");
-                    do {
-                        if (userInput.hasNextDouble()) {
-                            buyerCredit = userInput.nextDouble();
-                            userInput.nextLine();
-                            buyerChecked = checkCredits(buyerCredit, buyerPos, storedList);
-                            if (buyerChecked == false) {
-                                System.out.println("Incorrect buyer credit. Please resubmit.");
-                                validInput = false;
-                            } else {
-                                validInput = true;
-                                break;
-                            }
-                        } else {
-                            System.out.println("Invalid entry for credit. Please resubmit.");
-                            validInput = false;
-                            buyerCredit = userInput.nextDouble();
-                            userInput.nextLine();
-                            buyerChecked = checkCredits(buyerCredit, buyerPos, storedList);
-                        }
-                    } while (!(validInput));
-                    validInput = false;
+                    buyerCredit = storedList.get(buyerPos).getCredit();
                     //refund amount
                     System.out.println("Enter the refund credit amount");
                     do {
