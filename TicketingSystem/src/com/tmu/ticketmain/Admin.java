@@ -125,7 +125,6 @@ public class Admin extends User {
         int i = 0;
         boolean check = false;
         boolean localCheck;
-        String outputMessage = "";
         //name list
         List nameList = new ArrayList();
         for (i = 0; i < userList.size(); i++) {
@@ -136,7 +135,6 @@ public class Admin extends User {
         do {
             localCheck = target.equals(nameList.get(i));
             if (localCheck == true) {
-                System.out.println(outputMessage);
                 check = true;
                 foundAt = i;
                 break;
@@ -161,9 +159,27 @@ public class Admin extends User {
         return check;
     }
 
-    public void getRefundRequests() {
-        //Placeholder function. Used to retreive list of refund requests from sellers
-        System.out.println("No refund requests to be retrieved.");
+    public List getRefundRequests(List<RefundRequest> refundRequestList) {
+        //Basic requirements
+        int i = 0;
+        String sellerName;
+        String buyerName;
+        double sellerCredits;
+        double buyerCredits;
+        double refundAmount;
+        //Lists
+        List refundList = new ArrayList();
+        //Functionalities
+        for (i = 0; i < refundRequestList.size(); i++) {
+            sellerName = refundRequestList.get(i).getSellerName();
+            buyerName = refundRequestList.get(i).getBuyerName();
+            sellerCredits = refundRequestList.get(i).getSellerCredits();
+            buyerCredits = refundRequestList.get(i).getBuyerCredits();
+            refundAmount = refundRequestList.get(i).getRefundAmount();
+            String entry = String.format("%s %s %f %f %f", sellerName, buyerName, sellerCredits, buyerCredits, refundAmount);
+            refundList.add(entry);
+        }
+        return refundList;
     }
 
     public List addCredit(List<User> storedList) {
@@ -221,6 +237,7 @@ public class Admin extends User {
                 updatedCredits = oldValue + credits;
                 //Updating list entry
                 storedList.get(position).setCredit(updatedCredits);
+                CentralCore.addCreditTransaction(06, username, storedList.get(position).getUsertype(), updatedCredits);
                 //Success message
                 String addCreditMessageSuccess = String.format("Updated credits for user with username \"%s\" to %f", username, updatedCredits);
                 System.out.println(addCreditMessageSuccess);
@@ -240,6 +257,7 @@ public class Admin extends User {
         Scanner userInput = new Scanner(System.in);
         boolean validInput = false;
         boolean check;
+//        int position = 0;
         List userList = getUserList(storedList);
         //User input stream
         while (createUser_active) {
@@ -282,19 +300,21 @@ public class Admin extends User {
                 switch (type) {
                     case "aa":
                         storedList.add(new Admin(type, username, credits));
+                        CentralCore.addCreateUserTransaction(01, username, type.toUpperCase(), credits);
                         break;
                     case "fs":
                         storedList.add(new Standard_Full(type, username, credits));
+                        CentralCore.addCreateUserTransaction(01, username, type.toUpperCase(), credits);
                         break;
                     case "sb":
                         storedList.add(new Standard_Buy(type, username, credits));
+                        CentralCore.addCreateUserTransaction(01, username, type.toUpperCase(), credits);
                         break;
                     case "ss":
                         storedList.add(new Standard_Sell(type, username, credits));
+                        CentralCore.addCreateUserTransaction(01, username, type.toUpperCase(), credits);
                         break;
                 }
-                System.out.print(formatted);
-                System.out.println(storedList);
             } catch (Exception e) {
                 System.out.println("Exception caught. Reattempt submission.");
             }
@@ -315,10 +335,16 @@ public class Admin extends User {
         System.out.println("Enter user to be deleted");
         username = userInput.nextLine();
         check = getUser(username, userList);
-        while (username.length() > 15 || check == false) {
-            System.out.println("Invalid entry for username. Please resubmit.");
-            username = userInput.nextLine();
-            check = getUser(username, userList);
+        while (("admin".equals(username) && check == true) || (username.length() > 15 || check == false)) {
+            if ("admin".equals(username)) {
+                System.out.println("Cannot remove base administrator. Please resubmit.");
+                username = userInput.nextLine();
+                check = getUser(username, userList);
+            } else {
+                System.out.println("Invalid entry for username. Please resubmit.");
+                username = userInput.nextLine();
+                check = getUser(username, userList);
+            }
         }
         isFound = check;
         if (isFound == true) {
@@ -326,14 +352,15 @@ public class Admin extends User {
         }
         if (isFound == true) {
             try {
+                CentralCore.addDeleteUserTransaction(02, username, storedList.get(position).getUsertype(), storedList.get(position).getCredit());
                 storedList.remove(position);
                 //Success message
                 String deletionMessageSuccess = String.format("Deleted user with username \"%s\"", username);
                 System.out.println(deletionMessageSuccess);
                 //For testing purposes
-                System.out.println(storedList);
             } catch (Exception e) {
                 System.out.println("Delete request failed.");
+                System.out.println(e);
             }
         } else {
             String deletionMessageFail = String.format("Failed to delete user \"%s\".", username);
@@ -342,27 +369,35 @@ public class Admin extends User {
         return storedList;
     }
 
-    public List refund(List<User> storedList) {
+    public List refund(List<User> storedList, List<RefundRequest> refundRequestList) {
         //basic requirements
         String operation = "";
         String seller = "";
         String buyer = "";
+        String prompt = "";
         double sellerCredit = 0;
         double buyerCredit = 0;
         double refundCredit = 0;
+        int position = 0;
         int sellerPos = 0;
         int buyerPos = 0;
+        int i = 0;
         //method specific
         boolean refundUser_active = true;
         Scanner userInput = new Scanner(System.in);
+        boolean stillExistCheck = false;
+        boolean promptCheck1 = false;
+        boolean promptCheck2 = false;
         boolean check1;
         boolean check2;
         boolean validInput = false;
         int comparator = 0;
         boolean sellerChecked = false;
         boolean buyerChecked = false;
+        //Lists
         List userList = getUserList(storedList);
-
+        List refundList = new ArrayList();
+        //main prompts
         while (refundUser_active) {
             System.out.println("Select operation: fetch requests / new refund / cancel");
             do {
@@ -371,12 +406,70 @@ public class Admin extends User {
                     System.out.println("Invalid operation. Please resubmit.");
                 }
             } while (!(operation.toLowerCase().equals("fetch requests") || operation.toLowerCase().equals("new refund") || operation.toLowerCase().equals("cancel")));
+
             switch (operation) {
                 case "cancel":
                     refundUser_active = false;
                     break;
                 case "fetch requests":
-                    getRefundRequests();
+                    refundList = getRefundRequests(refundRequestList);
+                    //last minute check to see if any requests are invalid
+                    for (i = 0; i < refundRequestList.size(); i++) {
+                        stillExistCheck = getUser(refundRequestList.get(i).getBuyerName(), userList);
+//                        System.out.println(refundRequestList.get(i).getBuyerName());
+                        if (stillExistCheck == false) {
+//                            System.out.println("Not found, removing request");
+                            position = getPosition(refundRequestList.get(i).getBuyerName(), refundList);
+                            refundList.remove(i);
+                            refundRequestList.remove(i);
+                        }
+                    }
+                    if (refundList.isEmpty()) {
+                        System.out.println("No new refund requests.");
+                    } else {
+                        String foundRequests = String.format("Found %d new requests.", refundList.size());
+                        System.out.println(foundRequests);
+                        for (i = 0; i < refundList.size(); i++) {
+                            String promptRequest = String.format("Accept request %s ?", refundList.get(i));
+                            System.out.println(promptRequest);
+                            prompt = userInput.nextLine();
+                            //sloppy logic but this was at 4:30 am
+                            promptCheck1 = prompt.toLowerCase().equals("yes");
+                            promptCheck2 = prompt.toLowerCase().equals("no");
+                            while (promptCheck1 == false && promptCheck2 == false) {
+                                System.out.println("Invalid entry. Please resubmit.");
+                                prompt = userInput.nextLine();
+                            }
+                            switch (prompt) {
+                                case "yes":
+                                    //adding credit
+                                    sellerPos = getPosition(refundRequestList.get(i).getSellerName(), userList);
+                                    buyerPos = getPosition(refundRequestList.get(i).getBuyerName(), userList);
+                                    double tempBuyer = refundRequestList.get(i).getBuyerCredits() + refundRequestList.get(i).getRefundAmount();
+                                    buyerCredit = tempBuyer;
+                                    storedList.get(buyerPos).setCredit(buyerCredit);
+                                    //subtracting credit
+                                    double tempSeller = refundRequestList.get(i).getSellerCredits() - refundRequestList.get(i).getRefundAmount();
+                                    sellerCredit = tempSeller;
+                                    storedList.get(sellerPos).setCredit(sellerCredit);
+                                    CentralCore.addRefundTransaction(05, refundRequestList.get(i).getBuyerName(), refundRequestList.get(i).getSellerName(), refundRequestList.get(i).getRefundAmount());
+                                    //confirmation message
+                                    String successfulAdded = String.format("Successfully added %.2f to %s wallet, resulting in %.2f", refundRequestList.get(i).getRefundAmount(), buyer, buyerCredit);
+                                    System.out.println(successfulAdded);
+                                    String successfulSubtracted = String.format("Successfully subtracted %.2f from %s wallet, resulting in %.2f", refundRequestList.get(i).getRefundAmount(), seller, sellerCredit);
+                                    System.out.println(successfulSubtracted);
+                                    refundList.remove(i);
+                                    refundRequestList.remove(i);
+                                    break;
+                                case "no":
+                                    String rejectRequest = String.format("Rejected request %s ", refundList.get(i));
+                                    System.out.println(rejectRequest);
+                                    refundList.remove(i);
+                                    refundRequestList.remove(i);
+                                    break;
+                            }
+                        }
+                    }
                     break;
                 case "new refund":
                     //find seller
@@ -474,6 +567,7 @@ public class Admin extends User {
                     double tempSeller = sellerCredit - refundCredit;
                     sellerCredit = tempSeller;
                     storedList.get(sellerPos).setCredit(sellerCredit);
+                    CentralCore.addRefundTransaction(05, buyer, seller, refundCredit);
                     //confirmation message
                     String successfulAdded = String.format("Successfully added %.2f to %s wallet, resulting in %.2f", refundCredit, buyer, buyerCredit);
                     System.out.println(successfulAdded);

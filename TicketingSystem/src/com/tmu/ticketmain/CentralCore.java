@@ -17,6 +17,8 @@ public class CentralCore {
     private static List<User> userList = new ArrayList<User>();
     private static List<DailyTransaction> transactionList = new ArrayList<DailyTransaction>();
     private static List<DailyTransaction> buy_sell_transList = new ArrayList<DailyTransaction>();
+    //Refund request list
+    private static List<RefundRequest> refundRequestList = new ArrayList<RefundRequest>();
     
     private static User activeUser = null;
     
@@ -66,17 +68,32 @@ public class CentralCore {
                     Admin admin = new Admin(activeUser.getUsername(), activeUser.getUsertype(), activeUser.getCredit());
                     userList = admin.createUser(userList);
 
-                }else if(userInput.equals("Refund") && activeUser != null && activeUser.getUsertype().equals("AA")){
-                    
-                    //Sample admin implementation
-                    Admin admin = new Admin(activeUser.getUsername(), activeUser.getUsertype(), activeUser.getCredit());
-                    userList = admin.refund(userList);
-
                 }else if(userInput.equals("Delete") && activeUser != null && activeUser.getUsertype().equals("AA")){
                     
                     //Sample admin implementation
                     Admin admin = new Admin(activeUser.getUsername(), activeUser.getUsertype(), activeUser.getCredit());
                     admin.deleteUser(userList);
+
+                }else if(userInput.equals("Refund") && activeUser != null && activeUser.getUsertype().equals("AA")){
+                    
+                    //Sample admin implementation
+                    Admin admin = new Admin(activeUser.getUsername(), activeUser.getUsertype(), activeUser.getCredit());
+                    userList = admin.refund(userList, refundRequestList);
+                    
+
+                }else if(userInput.equals("Refund") && activeUser != null && (activeUser.getUsertype().equals("SS") || activeUser.getUsertype().equals("FS"))){
+                    
+                    //Sample user implementation
+                    switch (activeUser.getUsertype()){
+                        case "SS":
+                            Standard_Sell seller = new Standard_Sell("SS", activeUser.getUsername(), activeUser.getCredit());
+                            seller.refundRequest(activeUser.getUsername(), activeUser.getCredit(), userList, refundRequestList);
+                            break;
+                        case "FS":
+                            Standard_Full buyer = new Standard_Full("SS", activeUser.getUsername(), activeUser.getCredit());
+                            buyer.refundRequest(activeUser.getUsername(), activeUser.getCredit(), userList, refundRequestList);
+                            break;
+                    }
 
                 }else if(userInput.equals("Buy") && activeUser != null && activeUser.getUsertype() != "SS"){
                     //call the sell method
@@ -140,9 +157,11 @@ public class CentralCore {
         }else if(activeUser.getUsertype().equals("BS")){
             System.out.println("Buy, AddCredit, Logout, Commands");
         }else if(activeUser.getUsertype().equals("SS")){
-            System.out.println("Sell, AddCredit, Logout, Commands");
+            //Updated to include refund
+            System.out.println("Sell, AddCredit, Refund, Logout, Commands");
         }else if(activeUser.getUsertype().equals("FS")){
-            System.out.println("Buy, Sell, AddCredit, Logout, Commands");
+            //Updated to include refund
+            System.out.println("Buy, Sell, AddCredit, Refund, Logout, Commands");
         }
     }
     
@@ -175,13 +194,13 @@ public class CentralCore {
     public static void addBuyTransaction(int code, String eventName, String buyerUser, int ticketQuantity, double price){
         transactionList.add(new DailyTransaction(code, eventName, buyerUser, ticketQuantity, price));
     }
-
-    public static void addCreditTransaction(int code, String addCredUser, double credit){
-        transactionList.add(new DailyTransaction(code, addCredUser, credit));
+    //Changed to correct format
+    public static void addCreditTransaction(int code, String userName, String userType, double credit){
+        transactionList.add(new DailyTransaction(code, userName, userType, credit));
     }
-    
-    public static void addRefundTransaction(int code, double refund, String buyerUser, String sellerUser){
-        transactionList.add(new DailyTransaction(code, refund, buyerUser, sellerUser));
+    //Changed to correct order
+    public static void addRefundTransaction(int code, String buyerUser, String sellerUser, double refund){
+        transactionList.add(new DailyTransaction(code, buyerUser, sellerUser, refund));
     }
 
     public static void addSessionEndTransaction(int code, String generalUser, String userType, double credit){
@@ -191,7 +210,14 @@ public class CentralCore {
     public static void addBuySellTransaction(int code, String eventName, String sellerUser, int ticketQuantity, double price){
         buy_sell_transList.add(new DailyTransaction(code, eventName, sellerUser, ticketQuantity, price));
     }
-    
+    //Create Transaction
+    public static void addCreateUserTransaction(int code, String userName, String userType, double credit){
+        transactionList.add(new DailyTransaction(code, userName, userType, credit));
+    }
+    //Delete Transaction
+    public static void addDeleteUserTransaction(int code, String userName, String userType, double credit){
+        transactionList.add(new DailyTransaction(code, userName, userType, credit));
+    }
     // public static void addTransaction(int code, String userName, String userType, double credit){
     //     //add a transaction stream here for refunds
     // }

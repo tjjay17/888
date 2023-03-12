@@ -27,7 +27,7 @@ public class Ticket {
     
     // setters and getters methods for instance variables
     
-    public void seteventName (String eventName){
+    public void setEventName (String eventName){
         this.eventName = eventName;
     }
     
