@@ -1,0 +1,1286 @@
+
+==========Sell_Login_Admin_0.inp==========
+login
+admin
+sell
+logout
+
+
+==========Sell_Login_Admin_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to sell
+Session terminated
+
+
+==========Sell_Limit_Number_Tickets_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to sell
+Enter the price of each ticket
+Enter the number of tickets you want to sell
+Event created for sale
+Session terminated
+
+
+==========Sell_Limit_Number_Tickets_0.inp==========
+login
+sell-standard
+sell
+'Valid Title'
+400.00
+100
+
+
+
+==========Sell_Login_Full_Standard_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to sell
+Session terminated
+
+
+==========Sell_Login_Full_Standard_0.inp==========
+login 
+full-standard
+sell
+logout
+
+
+
+==========Sell_Limit_Number_Tickets_1.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to sell
+Enter the price of each ticket
+Enter the number of tickets you want to sell
+Only 100 tickets at most can be sold per event, please try again
+Session terminated
+
+
+
+==========Sell_Limit_Number_Tickets_1.inp==========
+login
+sell-standard
+sell
+Valid Title
+700
+120
+
+
+==========Sell_Event_Title_Valid_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to sell
+Enter the price of each ticket
+Session terminated
+
+
+==========Sell_Event_Title_Valid_0.inp==========
+Login 
+Sell-Standard
+Sell
+‘Valid Title’
+logout
+
+
+
+==========Sell_Login_Buy_Standard_1.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Unauthorized access, please change type or choose different operation
+Session terminated
+
+
+==========Sell_Login_Buy_Standard_1.inp==========
+login
+buy-standard
+sell
+logout
+
+
+==========Sell_Event_Title_Valid_1.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to sell
+Enter the price of each ticket
+Session terminated
+
+
+==========Sell_Event_Title_Valid_1.inp==========
+login
+sell-standard
+sell-standard
+'Valid Title'
+
+
+==========Sell_Ticket_Price_Limit_0.inp==========
+Login
+Sell-Standard
+Sell
+‘Valid Title’
+‘999.99’
+
+
+==========Sell_Ticket_Price_Limit_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to sell
+Enter the price of each ticket
+Enter the number of tickets for sale
+Session terminated
+
+
+==========Sell_Ticket_Price_Limit_1.inp==========
+Login
+Sell-Standard
+Sell
+‘Valid Title’
+‘1200’
+
+
+==========Sell_Ticket_Price_Limit_1.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to sell
+Enter the price of each ticket
+Each ticket has a maximum price of 999.99, please re-enter ticket price
+Session terminated
+
+
+==========Sell_Login_Sell_Standard_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to sell
+Session terminated
+
+
+==========Sell_Login_Sell_Standard_0.inp==========
+login
+sell-standard
+sell
+logout
+
+
+==========Delete_username_0.inp==========
+Login
+Admin
+Password
+Delete user
+Username
+Confirm
+
+
+
+==========Delete_username_1.inp==========
+Login
+Admin
+Password
+Delete user
+Invalidusername
+
+
+
+==========Delete_username_1.out==========
+Admin login successful
+Enter username
+User not found
+
+
+
+==========Delete_username_0.out==========
+Admin login successful
+Enter username
+Successfully deleted Username
+
+
+
+==========Deleted_user_transaction_block.out==========
+Admin login successful
+Enter username
+Successfully deleted Username
+Logout successful
+Username not found
+
+
+
+==========Deleted_user_transaction_block.inp==========
+Login
+Admin
+Password
+Delete user
+Username2
+Confirm
+Logout
+Login
+Username2
+Password
+
+
+
+==========Delete_unauthorized.out==========
+Login successful
+Invalid transaction
+
+
+
+==========Delete_unauthorized.inp==========
+Login
+Username
+Password
+Delete user
+
+
+
+==========Logout_standard_1.out==========
+Invalid transaction
+
+
+
+==========Logout_standard_0.out==========
+Login successful
+Logout successful
+
+
+
+==========Logout_standard_0.inp==========
+Login
+Username
+Password
+Logout
+
+
+
+==========Logout_standard_1.inp==========
+Logout
+
+
+
+==========Logout_admin.inp==========
+Login
+Admin
+Password
+Logout
+
+
+
+==========Logout_admin.out==========
+Admin login successful
+Logout successful
+
+
+
+==========Logout_call_1.out==========
+Login successful
+Logout successful
+Invalid transaction
+
+
+
+==========Logout_call_0.out==========
+Login successful
+Logout successful
+Login successful
+
+
+
+==========Logout_call_0.inp==========
+Login
+Username
+Password
+Logout
+Login
+Username
+Password
+
+
+
+==========Logout_call_1.inp==========
+Login
+Username
+Password
+Logout
+Buy
+
+
+
+==========Logout_printout.inp==========
+Login
+Username
+Password
+Logout
+
+
+
+==========Logout_printout.out==========
+Login successful
+Logout successful
+DailyPrintout.txt
+
+
+
+==========Addcredit_test_max_credit_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter the maximal amount of credit: $1000
+Logout
+
+
+
+==========Addcredit_test_max_credit_0.out==========
+Welcome to the add credit page
+Logged in as admin
+The amount you entered is correct.
+Session terminated
+
+
+
+==========Addcredit_test_max_credit_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter the max amount of credit: $1011 
+Logout
+
+
+
+==========Addcredit_test_max_credit_1.out==========
+Welcome to the add credit page
+Logged in as admin
+The amount you entered is incorrect.
+Session terminated
+
+
+
+==========Addcredit_check_login_0.inp==========
+Enter user type: AA, User Standard(FS,US,BS)
+Login 
+Admin/User Standard
+Logout
+
+
+
+==========Addcredit_check_login_0.out==========
+Welcome to the add credit page 
+Admin, or user standard logged in
+Session terminated
+
+
+
+==========Addcredit_check_login_1.inp==========
+Enter user type: MM
+Login failed
+Session terminated
+
+
+
+==========Addcredit_check_login_1.out==========
+Welcome to the add credit page 
+Login unsuccessful
+Session terminated
+
+
+
+==========Addcredit_check_data_entered_0.out==========
+Welcome to the add credit page
+Logged in as admin
+Data entered correctly
+Session terminated
+
+
+
+==========Addcredit_check_data_entered_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter amount of credit to add (0-9 digits, positive number): $50
+User’s username(15- characters): James
+Validate
+Logout
+
+
+
+==========Addcredit_saved_daily_trans_file_1.out==========
+Logged in as admin 
+Welcome to the transaction file
+Addcredit transaction does not exist on the daily transactions file
+Session terminated
+
+
+
+==========Addcredit_saved_daily_trans_file_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter add credit transaction details
+Close transaction file
+Logout
+
+
+
+==========Addcredit_saved_daily_trans_file_0.out==========
+Logged in as admin 
+Welcome to the transaction file
+Add credit  transaction saved correctly on the daily transactions file
+Session terminated
+
+
+
+==========Addcredit_saved_daily_trans_file_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter addcredit transaction details
+Close transaction file
+Logout
+
+
+
+==========Addcredit_check_data_entered_1.out==========
+Welcome to the add credit  page
+Logged in as Admin
+The credit and username entered are not in the right format
+Session terminated
+
+
+
+==========Addcredit_check_data_entered_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter amount of credit to add (10+ digits or negative )
+User’s username(16+ characters )
+Validate
+Logout
+
+
+
+==========Addcredit_check_client_username_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter client’s username: George
+Logout
+
+
+
+==========Addcredit_check_client_username_0.out==========
+Welcome to the add credit page
+Logged in as admin
+Client’s acccount: George
+The client exists in the database
+Session terminated
+
+
+
+==========Addcredit_check_client_username_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter client’s username: Logan
+Logout
+
+
+
+
+==========Addcredit_check_client_username_1.out==========
+Welcome to the addcredit  page
+Logged in as admin
+The client’s username does not exist in the database.
+Session terminated
+
+
+
+==========Addcredit_check_credit_1.out==========
+Welcome to the banking system 
+Logged in as standard user
+Data entered was inocorrect.
+Session terminated
+
+
+
+==========Addcredit_check_credit_1.inp==========
+Enter user type: FS, BS, or SS
+Login 
+Standard user
+Enter amount of credit to add (10+digits or negative):-5
+Logout
+
+
+
+==========Addcredit_check_credit_0.out==========
+Welcome to the add credit page
+Logged in as user standard
+Data entered was correct.
+Session terminated
+
+
+
+==========Addcredit_check_credit_0.inp==========
+Enter user type: FS, BS, or SS
+Login 
+Standard user
+Enter amount of credit to add (0-9 digits, positive): 100
+Logout
+
+
+
+==========Create_test_max_credit_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Add credit: 999,999
+Check credit
+Logout
+
+
+
+==========Create_test_max_credit_0.out==========
+Welcome to the check credit page
+Logged in as admin
+Credit on the user account is 999,999
+Session terminated
+
+
+
+==========Create_test_max_credit_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Add credit: 1000
+Check credit
+Logout
+
+
+
+==========Create_test_max_credit_1.out==========
+Welcome to the check credit page
+Logged in as admin
+Max credit on the user account cannot be greater than 999,999
+Session terminated
+
+
+
+==========Create_test_username_system_1.out==========
+Welcome to the create  page
+Logged in as admin
+New user name: George
+The username already exists on the database
+Session terminated
+
+
+
+==========Create_test_username_system_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter client’s username: George
+Logout
+
+
+
+==========Create_test_username_system_0.out==========
+Welcome to the create page
+Logged in as admin
+New user name: George
+The username does not exist on the database
+Session terminated
+
+
+
+==========Create_test_username_system_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter new username: George
+Logout
+
+
+
+==========Create_admin_login_0.out==========
+Welcome to the create page
+Logged in as admin
+New user account created successfully
+Session terminated
+
+
+
+==========Create_admin_login_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Create new user account
+Logout
+
+
+
+==========Create_admin_login_1.out==========
+Unsuccessful login as admin
+New user could not be created
+Session terminated
+
+
+
+==========Create_admin_login_1.inp==========
+Enter user type: LL
+Login 
+Admin
+Create new user account
+Logout
+
+
+
+==========Create_daily_transactions_file_0.out==========
+Welcome to the transaction file
+Logged in as admin 
+Create  transaction saved correctly on the daily transactions file
+Session terminated
+
+
+
+==========Create_daily_transactions_file_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter create transaction details
+Close transaction file
+Logout
+
+
+
+==========Create_daily_transactions_file_1.out==========
+Logged in as admin 
+Welcome to the transaction file
+Create transaction file does not exist on the daily transactions file
+Session terminated
+
+
+
+==========Create_daily_transactions_file_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter create transaction details
+Close transaction file
+Logout
+
+
+
+==========Create_new_username_1.out==========
+Welcome to the create page
+Logged in as admin
+New username not entered correctly
+Session terminated
+
+
+
+==========Create_new_username_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter new username (0-15 characters): aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Logout
+
+
+
+==========Create_new_username_0.out==========
+Welcome to the create page
+Logged in as admin
+New username entered correctly
+Session terminated
+
+
+
+==========Create_new_username_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter new username (0-15 characters): Joy
+Logout
+
+
+
+==========Create_user_type_1.out==========
+Welcome to the create page
+Logged in as admin
+New username's type entered incorrectly
+Session terminated
+
+
+
+==========Create_user_type_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter new username's type: OO
+Logout
+
+
+
+==========Create_user_type_0.out==========
+Welcome to the create page
+Logged in as admin
+New username's type entered correctly
+Session terminated
+
+
+
+==========Create_user_type_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter new username's type: FS
+Logout
+
+
+
+==========Buy_Check_Existing_Seller_1.inp==========
+login
+buy-standard
+buy
+'Valid Title'
+3
+'non-existing seller'
+logout
+
+
+==========Buy_Check_Existing_Seller_1.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to buy
+Enter the number of tickets you would like to purchase
+Enter the username of the seller
+Please re-enter a seller username that exists
+Session terminated
+
+
+==========Buy_Check_Existing_Seller_0.inp==========
+login
+buy-standard
+buy
+'Valid Title'
+3
+'Valid Username'
+logout
+
+
+==========Buy_Check_Existing_Seller_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to buy
+Enter the number of tickets you would like to purchase
+Enter the username of the seller
+Tickets purchased
+Session terminated
+
+
+
+==========Buy_Login_Sell_Standard_1.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Unauthorized access, please change type or choose different operation
+Session terminated
+
+
+
+==========Buy_Login_Sell_Standard_1.inp==========
+login
+sell-standard
+buy
+logout
+
+
+==========Buy_Privileged_Ticket_Limit_1.inp==========
+login
+buy-standard
+buy
+'Valid Title'
+6
+logout
+
+
+==========Buy_Privileged_Ticket_Limit_1.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to buy
+Enter the number of tickets you would like to purchase
+The maximum limit of tickets for purchase is 4, please try again.
+Session terminated
+
+
+
+==========Buy_Valid_Number_Tickets_0.inp==========
+login
+buy-standard
+buy
+'Valid Title'
+3
+logout
+
+
+==========Buy_Valid_Number_Tickets_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to buy
+Enter the number of tickets you would like to purchase
+Enter the username of the seller
+Session terminated
+
+
+
+==========Buy_Privileged_Ticket_Limit_0.inp==========
+login
+admin
+buy
+'Valid Title'
+6
+'Valid Seller'
+logout
+
+
+==========Buy_Privileged_Ticket_Limit_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to buy
+Enter the number of tickets you would like to purchase
+Enter the username of the seller
+Tickets purchased
+Session terminated
+
+
+
+==========Buy_Valid_Numbers_Tickets_1.inp==========
+login
+buy-standard
+buy
+Valid Title
+3
+logout
+
+
+==========Buy_Valid_Numbers_Tickets_1.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to buy
+Enter the number of tickets you would like to purchase
+You have requested more tickets than available for sale, please try again
+Session terminated
+
+
+
+==========Buy_Login_Admin_0.inp==========
+login
+admin
+buy
+logout
+
+
+==========Buy_Login_Admin_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to buy
+Session terminated
+
+
+==========Buy_Existing_Title_0.inp==========
+login
+buy-standard
+buy
+'Valid Title'
+logout
+
+
+==========Buy_Existing_Title_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to buy
+Enter the number of tickets you would like to purchase
+Session terminated
+
+
+==========Buy_Login_Full_Standard_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to buy
+Session terminated
+
+
+==========Buy_Login_Full_Standard_0.inp==========
+login
+full-standard
+buy
+logout
+
+
+==========Buy_Existing_Title_1.inp==========
+login
+buy-standard
+buy
+non-existing title
+logout
+
+
+==========Buy_Existing_Title_1.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to buy
+No such event title exists, please re-enter a valid existing event title
+Session terminated
+
+
+==========Buy_Login_Buy_Standard_0.out==========
+Welcome to the system
+Enter session type
+Enter operation
+Enter the event title you would like to buy
+Session terminated
+Please enter the name of the event to buy
+
+
+==========Buy_Login_Buy_Standard_0.inp==========
+login
+buy-standard
+buy
+logout
+
+
+==========Refund_check_transaction_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Check seller’s Account balance
+Check buyer’s Account balance
+Confirm refund processed
+Logout
+
+
+
+==========Refund_check_transaction_0.out==========
+Welcome to the refund  page
+Logged in as admin
+Seller’s account balance updated
+Buyer’s account balance updated
+The amount of:  $50 was transferred  from seller’s account into buyer’s account.
+Refund accepted 
+Session terminated 
+
+
+
+==========Refund_check_buyer,seller_existence_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter seller’s username: Alain
+Enter buyer’s username: Delon
+Logout
+
+
+
+
+
+==========Refund_check_buyer,seller_existence_0.out==========
+Welcome to the database of the system
+Logged in as admin
+Seller’s account: Alain
+Buyer’s account: Delon
+The seller and the buyer both exist in the database
+Session terminated
+
+
+
+==========Refund_check_login_admin_1.out==========
+Unsuccessful login 
+Session terminated
+
+
+
+==========Refund_check_login_admin_1.inp==========
+Enter user type: GG
+Login 
+Unsuccessful	 login
+Enter user type:
+
+
+
+==========Refund_check_buyer,seller_existence_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter seller’s username: Ryerson
+Enter buyer’s username: Jeff
+Logout
+
+
+
+==========Refund_check_buyer,seller_existence_1.out==========
+Welcome to the database of the system
+Logged in as admin
+Either the buyer, the seller, or both do not exist in the database.
+Session terminated
+
+
+
+==========Refund_check_login_admin_0.out==========
+Welcome to the refund page
+Enter session type: AA
+Logged in as admin
+Session terminated
+
+
+
+==========Refund_check_login_admin_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Logout
+
+
+
+==========Refund_check_transaction_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Check seller’s Account balance
+Check buyer’s Account balance
+Confirm refund processed
+Logout
+
+
+
+==========Refund_check_transaction_1.out==========
+Welcome to the banking system
+Logged in as admin
+Seller’s account balance not updated
+Buyer’s account balance not updated
+The amount of:  $50 was not transferred  from seller’s account into buyer’s account.
+Refund not accepted  
+Session terminated 
+
+
+
+==========Refund_data_entered_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Input buyer’s username (16 characters or more): aaaaaaaaaaaaaaaaa
+Input seller’s username (16 characters or more): aaaaaaaaaaaaaaaaa
+Input amount of credit to  transfer (10+ digits or negative): -50
+Logout
+
+
+
+==========Refund_data_entered_1.out==========
+Welcome to the refund page
+Logged in as admin
+The buyer’s name is invalid.
+The user’s name is invalid
+Credit entered is invalid
+Try again
+Session terminated 
+
+
+
+==========Refund_data_entered_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Enter buyer’s username (15 characters or less):  Ben
+Enter seller’s username (15 characters or less): Mike
+Enter amount of credit to  transfer (9 digits or less, positive): $50
+Logout
+
+
+
+==========Refund_data_entered_0.out==========
+Welcome to the refund page
+Logged in as admin
+The data entered was correct.
+Session terminated 
+
+
+
+==========Refund_saved_daily_trans_file_1.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter refund transaction details
+Close transaction file
+Logout
+
+
+
+==========Refund_saved_daily_trans_file_1.out==========
+Logged in as admin 
+Welcome to the transaction file
+Refund transaction not found on transaction file
+Session terminated
+
+
+
+==========Refund_saved_daily_trans_file_0.inp==========
+Enter user type: AA
+Login 
+Admin
+Open transaction file 
+Enter refund transaction details
+Close transaction file
+Logout
+
+
+
+==========Refund_saved_daily_trans_file_0.out==========
+Logged in as admin 
+Welcome to the transaction file
+Refund transaction saved correctly 
+Session terminated
+
+
+
+==========Invalid_transaction.out==========
+Invalid transaction
+
+
+
+==========Invalid_transaction.inp==========
+Sell
+
+
+
+==========Login_standard_1.inp==========
+Login
+Invaliduser
+Password
+
+
+
+==========Login_standard_0.inp==========
+Login
+Username
+Password
+
+
+
+==========Login_standard_0.out==========
+Login successful
+
+
+
+==========Login_standard_1.out==========
+Login unsuccessful
+
+
+
+==========Login_admin_0.inp==========
+Login
+Admin
+Password
+
+
+
+==========Login_admin_1.inp==========
+Login
+Admin
+WrongPassword
+
+
+
+==========Login_admin_1.out==========
+Unsuccessful admin login
+
+
+
+==========Login_admin_0.out==========
+Admin login successful
+
+
+
+==========Repeat_login.out==========
+Login successful
+Invalid transaction
+
+
+
+==========Repeat_login.inp==========
+Login
+Username
+Password
+Login
+
+
+
+==========Admin_call.out==========
+Admin login successful
+Enter new username
+Cancelled operation
+Logout successful
+
+
+
+==========Admin_call.inp==========
+Login
+Admin
+Password
+Create user
+Cancel
+Logout
+
+
+
+==========Standard_call_1.out==========
+Login successful
+Invalid transaction
+
+
+
+==========Standard_call_0.out==========
+Login successful
+Select tickets
+Cancelled operation
+Logout successful
+
+
+
+==========Standard_call_0.inp==========
+Login
+Username
+Password
+Sell
+Cancel
+Logout
+
+
+
+==========Standard_call_1.inp==========
+Login
+Username
+Password
+Create User
+
+
