@@ -55,7 +55,7 @@ public class CentralCore {
                     if(activeUser != null){
                         System.out.println("Login successful");
                     }
-                }else if(userInput.equals("Quit") && activeUser == null){
+                }else if(userInput.equals("Exit") && activeUser == null){
                     break;
                 }else if(userInput.equals("Commands")){
                     getUserOperations();
@@ -142,17 +142,17 @@ public class CentralCore {
     
     public static void getUserOperations(){
         if(activeUser == null){
-            System.out.println("Login, Quit");
+            System.out.println("Login, Exit");
         }else if(activeUser.getUsertype().equals("AA")){
-            System.out.println("Buy, Sell, Refund, Delete, Create, AddCredit, Logout, Commands");
+            System.out.println("Buy, Sell, Refund, Delete, Create, AddCredit, Logout, Commands, Exit");
         }else if(activeUser.getUsertype().equals("BS")){
-            System.out.println("Buy, AddCredit, Logout, Commands");
+            System.out.println("Buy, AddCredit, Logout, Commands, Exit");
         }else if(activeUser.getUsertype().equals("SS")){
             //Updated to include refund
-            System.out.println("Sell, AddCredit, Refund, Logout, Commands");
+            System.out.println("Sell, AddCredit, Refund, Logout, Commands, Exit");
         }else if(activeUser.getUsertype().equals("FS")){
             //Updated to include refund
-            System.out.println("Buy, Sell, AddCredit, Refund, Logout, Commands");
+            System.out.println("Buy, Sell, AddCredit, Refund, Logout, Commands, Exit");
         }
     }
     
@@ -240,7 +240,6 @@ public class CentralCore {
 // populate ticketList with tickets from tickets.txt file
     public static void readTickets() throws FileNotFoundException, IOException{
 
-    	// FOR THANOOJ - File inputFile = new File("../tickets.txt");
         File inputFile = new File("tickets.txt");
     	BufferedReader reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
