@@ -305,7 +305,7 @@ public class CentralCore {
 
         String fileLine;
         //FOR THANOOJ ---> File userFile = new File("../users.txt")
-        File userFile = new File(".users.txt");
+        File userFile = new File("users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));
