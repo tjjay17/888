@@ -8,4 +8,7 @@ Sarah           BS 420.00000
 jimbo           AA 145.20000
 bobbby          FS 88.000000
 pibbles         FS 594.80000
+Michael         SS 80.000000
+madeline        BS 20.000000
+Jamie           BS 20.000000
 END                         

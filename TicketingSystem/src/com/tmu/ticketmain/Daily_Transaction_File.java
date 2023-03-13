@@ -37,9 +37,7 @@ public class Daily_Transaction_File {
                 if(currentTrans.getCode() == 1 || currentTrans.getCode() == 2){
                     //then select if it is create OR delete
                     String codeToUse = (currentTrans.getCode() == 1) ? createCode : deleteCode;
-                    String transUsername = currentTrans.getGenUser();
-                    User transUser = CentralCore.findUser(transUsername);
-                    String dtfLine = codeToUse + "_" + currentTrans.getGenUser() + "_" + transUser.getUsertype() + "_" + transUser.getCredit();
+                    String dtfLine = codeToUse + "_" + currentTrans.getGenUser() + "_" + currentTrans.getUserType() + "_" + currentTrans.getCredit();
 
                     fw.append(dtfLine);
                 //add credit
@@ -83,7 +81,7 @@ public class Daily_Transaction_File {
             fw.close();
             br.close();
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Error " + e.getMessage());
         }
 
     }

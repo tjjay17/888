@@ -113,4 +113,8 @@ public class DailyTransaction {
         return this.generalUser;
     }
 
+    public String getUserType(){
+        return this.userType;
+    }
+
 }

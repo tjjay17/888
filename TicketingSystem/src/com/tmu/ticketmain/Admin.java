@@ -280,7 +280,7 @@ public class Admin extends User {
                 if (!(type.toLowerCase().equals("aa") || type.toLowerCase().equals("fs") || type.toLowerCase().equals("bs") || type.toLowerCase().equals("ss"))) {
                     System.out.println("Invalid entry for type. Please resubmit.");
                 }
-            } while (!(type.toLowerCase().equals("aa") || type.toLowerCase().equals("fs") || type.toLowerCase().equals("sb") || type.toLowerCase().equals("ss")));
+            } while (!(type.toLowerCase().equals("aa") || type.toLowerCase().equals("fs") || type.toLowerCase().equals("bs") || type.toLowerCase().equals("ss")));
             validInput = false;
             //Entering credit value
             System.out.println("Enter the credit amount");
@@ -309,7 +309,7 @@ public class Admin extends User {
                         storedList.add(new Standard_Full(type.toUpperCase(), username, credits));
                         CentralCore.addCreateUserTransaction(01, username, credits, type.toUpperCase());
                         break;
-                    case "sb":
+                    case "bs":
                         storedList.add(new Standard_Buy(type.toUpperCase(), username, credits));
                         CentralCore.addCreateUserTransaction(01, username, credits, type.toUpperCase());
                         break;
