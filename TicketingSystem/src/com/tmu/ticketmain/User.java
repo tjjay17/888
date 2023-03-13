@@ -54,27 +54,30 @@ public abstract class User {
             return false;
         }
     }
-
+    
+    int l;
     // check if seller exist on the database
     public Boolean checkSeller() {
-        if (CentralCore.getTickets().get(k).getSellerUsername().equals(sellerUsername)) {
+        if (CentralCore.getTickets().get(l).getSellerUsername().equals(sellerUsername)) {
             return true;
         } else {
             return false;
         }
     }
 
+    int b;
     //check if there are tickets in stock
     public Boolean checkTicketsinStock() {
-        if (CentralCore.getTickets().get(k).getTicketsinStock() >= ticketQuantity) {
+        if (CentralCore.getTickets().get(b).getTicketsinStock() >= ticketQuantity) {
             return true;
         } else {
             return false;
         }
     }
+    int r;
     //modify tickets in stock after buy()
     public void modifyTicketinStock(){
-        CentralCore.getTickets().get(k).setTicketsinStock(CentralCore.getTickets().get(k).getTicketsinStock() - ticketQuantity);
+        CentralCore.getTickets().get(r).setTicketsinStock(CentralCore.getTickets().get(r).getTicketsinStock() - ticketQuantity);
     }
 
     // Buy method
@@ -111,16 +114,19 @@ public abstract class User {
                     for (int i = 0; i< CentralCore.getTickets().size();i++) {
 
                         //check the event name of the ticket exists on the database
+                        k=i;
                         if (checkEventName().equals(false)) {
                             continue;
                         }
 
                         //check if the seller exists on the database
+                        l=i;
                         else if (checkSeller().equals(false)) {
                             continue;
                         }
 
                         //check if there are tickets in stock
+                        b=i
                         else if (checkTicketsinStock().equals(false)) {
                             continue;
                         } else {
@@ -138,6 +144,7 @@ public abstract class User {
                                 case "Yes":
 
                                     //modify tickets in stock after buy()
+                                    r=i;
                                     modifyTicketinStock();
                                     for (int j = 0; j < CentralCore.getUsers().size(); j++) {
 
