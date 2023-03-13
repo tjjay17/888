@@ -115,12 +115,6 @@ public class CentralCore {
                 }else{
                     System.out.println("Command not understood");
                 }
-
-                // if(firstRun){
-                //     firstRun = false; 
-                //  }else{
-                //      System.out.println("Enter a command, or 'c' for a list of commands.");
-                //  }
             }        
         }catch (IOException e){
             System.out.println(e.getMessage());
