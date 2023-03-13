@@ -275,11 +275,15 @@ public abstract class User {
 			    
 		        flag = false;
 			//Save this information in the dailytransaction file
-			CentralCore.addCreditTransaction(this.username, credit_to_add, 6, this.usertype);    
+			CentralCore.addCreditTransaction(this.username, credit_to_add, 6, this.usertype);
+			User currUser = CentralCore.findUser(username);
+			currUser.setCredit(currUser.getCredit() + credit_to_add);
+			CentralCore.addCredFileChange(currUser.getUsername(), credit_to_add);
+			System.out.println("New credit is: " + currUser.getCredit());
 			break;
 		    } else {
 				System.out.println("The amount entered is not correct!");
-		           } 
+		    } 
 	    }
 
 	    catch (InputMismatchException ex) {
@@ -288,7 +292,7 @@ public abstract class User {
 
 	    } 
 
-	}while(flag = true);
+	}while(flag == true);
 
      }
 

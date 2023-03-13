@@ -107,6 +107,7 @@ public class CentralCore {
 
                 }else if(userInput.equals("AddCredit") && activeUser != null){
                     //call the addCredit method
+                    activeUser.addCredit();
                 }else{
                     System.out.println("Command not understood");
                 }
@@ -249,7 +250,8 @@ public class CentralCore {
 // populate ticketList with tickets from tickets.txt file
     public static void readTickets() throws FileNotFoundException, IOException{
 
-    	File inputFile = new File("../tickets.txt");
+    	// FOR THANOOJ - File inputFile = new File("../tickets.txt");
+        File inputFile = new File("tickets.txt");
     	BufferedReader reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
@@ -272,7 +274,8 @@ public class CentralCore {
     
     public static void readUsers() throws FileNotFoundException, IOException{
 
-    	File inputFile = new File("../users.txt");
+    	//FOR THANOOJ - File inputFile = new File("../users.txt");
+        File inputFile = new File("users.txt");
     	BufferedReader reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
@@ -312,7 +315,7 @@ public class CentralCore {
 
         String fileLine;
         //FOR THANOOJ ---> File userFile = new File("../users.txt")
-        File userFile = new File("../users.txt");
+        File userFile = new File("users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));
@@ -325,7 +328,8 @@ public class CentralCore {
             }
 
             //this line deletes contents of current file
-            pw = new PrintWriter("../users.txt");
+            //FOR THANOOJ - pw = new PrintWriter("../users.txt");
+            pw = new PrintWriter("users.txt");
             //rewrite every single old line except "END"
             for(int i = 0 ; i < userContents.size() - 1; i++){
                 if(i != 0){
@@ -357,7 +361,8 @@ public class CentralCore {
 
         List<String> userContents = new ArrayList<String>();
         String fileLine;
-        File userFile = new File("../users.txt");
+        //FOR THANOOJ - File userFile = new File("../users.txt");
+        File userFile = new File("users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));
@@ -395,7 +400,8 @@ public class CentralCore {
         double oldCredit, newCredit;
 
         String fileLine;
-        File userFile = new File("../users.txt");
+        //FOR THANOOJ - File userFile = new File("../users.txt");
+        File userFile = new File("users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));
@@ -443,7 +449,8 @@ public class CentralCore {
         List<String> userContents = new ArrayList<String>();
 
         String fileLine;
-        File userFile = new File("../users.txt");
+        //FOR THANOOJ - File userFile = new File("users.txt");
+        File userFile = new File("users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));

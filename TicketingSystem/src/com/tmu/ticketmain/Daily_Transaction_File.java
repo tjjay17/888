@@ -23,7 +23,8 @@ public class Daily_Transaction_File {
         List<DailyTransaction> transList = CentralCore.getTransactions();
 
         //file format - dtf_year_month_date.txt
-        File dtf = new File("../DailyTransactionFiles/dtf" + "_" +  year + "_" + month + "_" + date + ".txt");
+        //FOR THANOOJ - File dtf = new File("../DailyTransactionFiles/dtf" + "_" +  year + "_" + month + "_" + date + ".txt");
+        File dtf = new File("DailyTransactionFiles/dtf" + "_" +  year + "_" + month + "_" + date + ".txt");
         
         try{
             BufferedWriter fw = new BufferedWriter( new FileWriter(dtf, true));

@@ -7,5 +7,5 @@ Daniel          FS 200.00000
 Sarah           BS 390.00000
 jimbo           AA 100.00000
 bobbby          FS 63.000000
-pibbles         FS 90.000000
+pibbles         FS 650.00000
 END                         
