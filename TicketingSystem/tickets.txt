@@ -2,5 +2,5 @@ Random event              Arnold         001 10.000
 Random event              Thanooj        002 100.00
 Random event              Daniel         003 15.000
 Another event             Thanooj        004 20.000
-test event here           pibbles        020 40.000
+test event here           pibbles        013 40.000
 END                                                

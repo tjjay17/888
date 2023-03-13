@@ -31,7 +31,6 @@ public class CentralCore {
         readUsers();
         
         String userInput = "";
-        boolean firstRun = true;
         try(BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))){
             //prompts can be changed
             System.out.println("Welcome to the ticket system");
@@ -97,10 +96,6 @@ public class CentralCore {
 
                 }else if(userInput.equals("Buy") && activeUser != null && activeUser.getUsertype() != "SS"){
                     activeUser.Buy();
-                    for(int i = 0; i < CentralCore.getTickets().size(); i++){
-                        System.out.println(CentralCore.getTickets().get(i).getEventName());
-                        System.out.println(CentralCore.getTickets().get(i).getTicketsinStock());
-                    }
                 }else if(userInput.equals("Sell") && activeUser != null && activeUser.getUsertype() != "BS"){    
                     activeUser.sell();
                 }else if(userInput.equals("AddCredit") && activeUser != null && activeUser.getUsertype().equals("AA")){
@@ -135,9 +130,6 @@ public class CentralCore {
     
     public static void logout(){
         //once the PR for creating a daily trans file is merged, need to call that method here to actually write the daily file
-        System.out.println(activeUser.getUsername());
-        System.out.println(activeUser.getUsertype());
-        System.out.println(activeUser.getCredit());
         addSessionEndTransaction(0, activeUser.getUsername(), activeUser.getUsertype(), activeUser.getCredit());
         activeUser = null;
         Daily_Transaction_File.createOrUpdateDailyFile();
@@ -249,7 +241,7 @@ public class CentralCore {
     public static void readTickets() throws FileNotFoundException, IOException{
 
     	// FOR THANOOJ - File inputFile = new File("../tickets.txt");
-        File inputFile = new File("../tickets.txt");
+        File inputFile = new File("tickets.txt");
     	BufferedReader reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
@@ -273,7 +265,7 @@ public class CentralCore {
     public static void readUsers() throws FileNotFoundException, IOException{
 
     	//FOR THANOOJ - File inputFile = new File("../users.txt");
-        File inputFile = new File("../users.txt");
+        File inputFile = new File("users.txt");
     	BufferedReader reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
@@ -313,7 +305,7 @@ public class CentralCore {
 
         String fileLine;
         //FOR THANOOJ ---> File userFile = new File("../users.txt")
-        File userFile = new File("../users.txt");
+        File userFile = new File(".users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));
@@ -327,7 +319,7 @@ public class CentralCore {
 
             //this line deletes contents of current file
             //FOR THANOOJ - pw = new PrintWriter("../users.txt");
-            pw = new PrintWriter("../users.txt");
+            pw = new PrintWriter("users.txt");
             //rewrite every single old line except "END"
             for(int i = 0 ; i < userContents.size() - 1; i++){
                 if(i != 0){
@@ -360,7 +352,7 @@ public class CentralCore {
         List<String> userContents = new ArrayList<String>();
         String fileLine;
         //FOR THANOOJ - File userFile = new File("../users.txt");
-        File userFile = new File("../users.txt");
+        File userFile = new File("users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));
@@ -399,7 +391,7 @@ public class CentralCore {
 
         String fileLine;
         //FOR THANOOJ - File userFile = new File("../users.txt");
-        File userFile = new File("../users.txt");
+        File userFile = new File("users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));

@@ -467,6 +467,7 @@ public class Admin extends User {
                                         System.out.println(successfulAdded);
                                         String successfulSubtracted = String.format("Successfully subtracted %.2f from %s wallet, resulting in %.2f", refundRequestList.get(i).getRefundAmount(), refundRequestList.get(i).getSellerName(), sellerCredit);
                                         System.out.println(successfulSubtracted);
+                                        CentralCore.refundFileChange(refundRequestList.get(i).getBuyerName(), refundRequestList.get(i).getSellerName(), refundRequestList.get(i).getRefundAmount());
                                         refundList.remove(i);
                                         refundRequestList.remove(i);
                                         break;
@@ -598,7 +599,6 @@ public class Admin extends User {
                     System.out.println(successfulAdded);
                     String successfulSubtracted = String.format("Successfully subtracted %.2f from %s wallet, resulting in %.2f", refundCredit, seller, sellerCredit);
                     System.out.println(successfulSubtracted);
-                    CentralCore.refundFileChange(buyer, seller, refundCredit);
                     break;
             }
             refundUser_active = false;

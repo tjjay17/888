@@ -1,11 +1,11 @@
 admin           AA 99991.000
 buyer           BS 80.000000
-seller          SS 80.000000
+seller          SS 25.000000
 fullStandard    FS 75.000000 
-Arnold          FS 200.00000
+Arnold          FS 230.00000
 Daniel          FS 200.00000
-Sarah           BS 390.00000
-jimbo           AA 100.00000
-bobbby          FS 63.000000
-pibbles         FS 650.00000
+Sarah           BS 420.00000
+jimbo           AA 145.20000
+bobbby          FS 88.000000
+pibbles         FS 594.80000
 END                         

@@ -201,7 +201,6 @@ public class Standard_Sell extends User {
                     String formattedRequest = String.format("Created refund request for %s for an amount of %.2f", buyer, refundCredit);
                     System.out.println(formattedRequest);
                     refundRequest_active = false;
-                    CentralCore.refundFileChange(buyer, seller, refundCredit);
                     break;
             }
         }

@@ -86,7 +86,7 @@ public abstract class User {
 
 	public void modifyTicketFileBuy(String eventName, String sellerName, double price, int ticketQuantity){
 		try{
-			File ticketFile = new File("../tickets.txt");
+			File ticketFile = new File("tickets.txt");
 			PrintWriter pw;
 			BufferedWriter fw = new BufferedWriter( new FileWriter(ticketFile, true));
 			BufferedReader fr = new BufferedReader( new FileReader(ticketFile));
@@ -123,13 +123,13 @@ public abstract class User {
 
 
 		}catch(Exception e){
-			System.out.println("Error: " + e.getMessage() + e.getStackTrace()[0].getLineNumber());
+			System.out.println("Error: " + e.getMessage());
 		}
 	}
 
 	public void modifyTicketFileSell(String eventName, String sellerName, int ticketQuantity, double price){
 		try{
-			File ticketFile = new File("../tickets.txt");
+			File ticketFile = new File("tickets.txt");
 			PrintWriter pw;
 			BufferedWriter fw = new BufferedWriter( new FileWriter(ticketFile, true));
 			BufferedReader fr = new BufferedReader( new FileReader(ticketFile));
@@ -199,7 +199,6 @@ public abstract class User {
 						boolean validEventName = checkEventName(i, eventName);
 						boolean validSellerName = checkSeller(i, sellerUsername);
                         if(validTicketStock && validEventName && validSellerName) {
-							System.out.println("all Valid xD");
 							validUserInput = true;
 
                             double Price = CentralCore.getTickets().get(i).getTicketPrice();
@@ -254,7 +253,7 @@ public abstract class User {
                             }
 							break;
                         }else if(i == CentralCore.getTickets().size() - 1){
-							System.out.println("Wrong seller name, too many tickets requested or wront event name.");
+							System.out.println("Wrong seller name, too many tickets requested or wrong event name.");
 							flag = false;
 							break;
 						}
@@ -348,22 +347,6 @@ public abstract class User {
         do {
             Scanner input = new Scanner(System.in);
             System.out.println ("Enter the amount you want to add as credit: ");
-            try {
-                credit_to_add = input.nextDouble();
-                if (credit_to_add > 0 && credit_to_add <=1000){
-
-                    flag = false;
-                    //Save this information in the dailytransaction file
-                    CentralCore.addCreditTransaction(this.getUsername(), credit_to_add, 6, this.getUsertype());
-                    break;
-                } else {
-                    System.out.println("The amount entered is not correct!");
-                }
-            }
-            catch (InputMismatchException ex) {
-                System.out.println("Try again!");
-            }
-
 	    try {
 		    credit_to_add = input.nextDouble();
 		    if (credit_to_add > 0 && credit_to_add <=1000){
@@ -372,8 +355,8 @@ public abstract class User {
 			//Save this information in the dailytransaction file
 			CentralCore.addCreditTransaction(this.username, credit_to_add, 6, this.usertype);
 			User currUser = CentralCore.findUser(username);
-			currUser.setCredit(currUser.getCredit() + credit_to_add);
 			CentralCore.addCredFileChange(currUser.getUsername(), credit_to_add);
+			currUser.setCredit(currUser.getCredit() + credit_to_add);
 			System.out.println("New credit is: " + currUser.getCredit());
 			break;
 		    } else {
