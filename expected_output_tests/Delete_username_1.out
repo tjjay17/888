@@ -1,3 +1,13 @@
-Admin login successful
-Enter username
-User not found
+Welcome to the ticket system
+Enter a command, or 'Commands' for a list of commands.
+Please enter your username.
+Login successful
+Enter a command, or 'Commands' for a list of commands.
+Enter user to be deleted
+No such user exists in system.
+Invalid entry for username. Please resubmit.
+User "Test1" successfully found.
+Deleted user with username "Test1"
+Enter a command, or 'Commands' for a list of commands.
+Logout successful.
+Enter a command, or 'Commands' for a list of commands.
