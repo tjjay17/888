@@ -26,6 +26,43 @@ public class Ticket {
     }
     
     // setters and getters methods for instance variables
+
+    public static String formatEventName(String eventName){
+        while(eventName.length() < 26){
+            eventName = eventName + " ";
+        }
+
+        return eventName;
+    }
+
+    public static String formatTicketQuantity(int ticketQuantity){
+        String ticketStr = Integer.toString(ticketQuantity);
+        while(ticketStr.length() < 3){
+            ticketStr = "0" + ticketStr;
+        }
+
+        return ticketStr + " ";
+    }
+
+    public static String formatSellerName(String sellerName){
+        while(sellerName.length() < 15){
+            sellerName = sellerName + " ";
+        }
+
+        return sellerName;
+    }
+
+    public static String formatSellerPrice(double price){
+        String priceStr = Double.toString(price);
+        while(priceStr.length() < 6){
+            priceStr = priceStr + "0";
+        }
+
+        return priceStr;
+
+    }
+
+
     
     public void setEventName (String eventName){
         this.eventName = eventName;
