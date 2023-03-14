@@ -1,1 +1,6 @@
-Unsuccessful admin login
+Welcome to the ticket system
+Enter a command, or 'Commands' for a list of commands.
+Please enter your username.
+No such user can be found, try again or enter 'quit' to stop
+Login attempt ended
+Enter a command, or 'Commands' for a list of commands.
