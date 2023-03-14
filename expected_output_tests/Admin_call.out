@@ -1,4 +1,12 @@
-Admin login successful
-Enter new username
-Cancelled operation
-Logout successful
+Welcome to the ticket system
+Enter a command, or 'Commands' for a list of commands.
+Please enter your username.
+Login successful
+Enter a command, or 'Commands' for a list of commands.
+Enter a new username
+No such user exists in system.
+Enter the two letter user type: aa - admin, fs - full standard, bs - buy standard, ss - sell standard
+Enter the credit amount
+Enter a command, or 'Commands' for a list of commands.
+Logout successful.
+Enter a command, or 'Commands' for a list of commands.
