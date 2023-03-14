@@ -1,5 +1,26 @@
-Admin login successful
-Enter username
-Successfully deleted Username
-Logout successful
-Username not found
+Welcome to the ticket system
+Enter a command, or 'Commands' for a list of commands.
+Please enter your username.
+Login successful
+Enter a command, or 'Commands' for a list of commands.
+Select operation: new refund / cancel
+Enter buyer username
+User "DeleteTest" successfully found.
+Enter the refund credit amount
+Created refund request for DeleteTest for an amount of 5.00
+Enter a command, or 'Commands' for a list of commands.
+Logout successful.
+Enter a command, or 'Commands' for a list of commands.
+Please enter your username.
+Login successful
+Enter a command, or 'Commands' for a list of commands.
+Enter user to be deleted
+User "DeleteTest" successfully found.
+Deleted user with username "DeleteTest"
+Enter a command, or 'Commands' for a list of commands.
+Select operation: fetch requests / new refund / cancel
+No such user exists in system.
+No new refund requests.
+Enter a command, or 'Commands' for a list of commands.
+Logout successful.
+Enter a command, or 'Commands' for a list of commands.
