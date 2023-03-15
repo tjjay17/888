@@ -59,8 +59,12 @@ public class CentralCore {
                     break;
                 }else if(userInput.equals("Commands")){
                     getUserOperations();
-                }else if(userInput.equals("Logout") && activeUser != null){
-                    logout();
+                }else if(userInput.equals("Logout")){
+                    try{
+                        logout();
+                    }catch(Exception e){
+                        System.out.println("You can't logout, without Logging in first!");
+                    }
                 }else if(userInput.equals("Create") && activeUser != null && activeUser.getUsertype().equals("AA")){
                     
                     //Sample admin implementation
@@ -128,7 +132,7 @@ public class CentralCore {
         return userFound;
     }
     
-    public static void logout(){
+    public static void logout() throws Exception{
         //once the PR for creating a daily trans file is merged, need to call that method here to actually write the daily file
         addSessionEndTransaction(0, activeUser.getUsername(), activeUser.getUsertype(), activeUser.getCredit());
         activeUser = null;

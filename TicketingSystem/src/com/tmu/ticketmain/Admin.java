@@ -286,13 +286,27 @@ public class Admin extends User {
             //Entering credit value
             System.out.println("Enter the credit amount");
             do {
-                if (userInput.hasNextDouble()) {
-                    credits = userInput.nextDouble();
-                    validInput = true;
-                } else {
-                    System.out.println("Invalid entry for credit. Please resubmit.");
-                    validInput = false;
-                    userInput.next();
+                try {
+                    if (userInput.hasNextDouble()) {
+                        credits = userInput.nextDouble();
+                        if (credits >= 0 && credits < 1000) {
+                            validInput = true;
+                            break;
+                        } else {
+                            System.out.println("Value in excess of 999.999. Please resubmit.");
+                            validInput = false;
+                            userInput.hasNextDouble();
+                        }
+                    } else {
+                        System.out.println("Invalid entry for credit. Please resubmit.");
+                        validInput = false;
+                        userInput.nextDouble();
+                    }
+
+                }
+                catch (Exception e){
+//                    System.out.println(e.getMessage());
+                      break;
                 }
             } while (!(validInput));
             validInput = false;
