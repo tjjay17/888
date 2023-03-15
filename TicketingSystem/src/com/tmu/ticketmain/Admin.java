@@ -242,6 +242,7 @@ public class Admin extends User {
                 CentralCore.addCreditTransaction(username, updatedCredits, 6, storedList.get(position).getUsertype());
                 //Success message
                 String addCreditMessageSuccess = String.format("Updated credits for user with username \"%s\" to %f", username, updatedCredits);
+                System.out.println("Added add credit transaction to daily transaction list.");
                 System.out.println(addCreditMessageSuccess);
                 CentralCore.addCredFileChange(username, credits);
             }
@@ -320,6 +321,7 @@ public class Admin extends User {
                 }
 
                 //alters the user file so that it reflects the creation of a new user
+                System.out.println("Added create transaction to daily transaction file.");
                 CentralCore.writeToUsersFile(username, type.toUpperCase(), credits);
             } catch (Exception e) {
                 System.out.println("Exception caught. Reattempt submission.");
@@ -363,6 +365,7 @@ public class Admin extends User {
                 //Success message
                 String deletionMessageSuccess = String.format("Deleted user with username \"%s\"", username);
                 System.out.println(deletionMessageSuccess);
+                System.out.println("Added delete transaction to daily transaction list.");
                 //this call will delete the user from the users.txt
                 CentralCore.deleteFromUsersFile(username);
                 //For testing purposes
@@ -467,6 +470,7 @@ public class Admin extends User {
                                         System.out.println(successfulAdded);
                                         String successfulSubtracted = String.format("Successfully subtracted %.2f from %s wallet, resulting in %.2f", refundRequestList.get(i).getRefundAmount(), refundRequestList.get(i).getSellerName(), sellerCredit);
                                         System.out.println(successfulSubtracted);
+                                        System.out.println("Added refund transaction to the daily transaction list.");
                                         CentralCore.refundFileChange(refundRequestList.get(i).getBuyerName(), refundRequestList.get(i).getSellerName(), refundRequestList.get(i).getRefundAmount());
                                         refundList.remove(i);
                                         refundRequestList.remove(i);

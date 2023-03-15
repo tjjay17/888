@@ -231,6 +231,7 @@ public abstract class User {
 											modifyTicketinStock(i, ticketQuantity);
 											modifyTicketFileBuy(eventName, sellerUsername, Price, ticketQuantity);
                                             System.out.println("Transaction processed successfully");
+                                            System.out.println("Added buy transaction to daily transaction list.");
                                             flag = false;
 
                                             //Save this information in the dailytransaction list and buy/sell transaction list
@@ -307,6 +308,7 @@ public abstract class User {
 							if(ticketQuantity > 0 && ticketQuantity <= 100){
 
 								System.out.println("All the information entered is legal, event has been created.");
+                                System.out.println("Added sell transaction to daily transaction list.");
 								flag = false;
 
 								//Save this information in the dailytransaction file and buy/sell transaction file
@@ -358,6 +360,7 @@ public abstract class User {
 			CentralCore.addCredFileChange(currUser.getUsername(), credit_to_add);
 			currUser.setCredit(currUser.getCredit() + credit_to_add);
 			System.out.println("New credit is: " + currUser.getCredit());
+            System.out.println("Added add credit transaction to daily transaction list.");
 			break;
 		    } else {
 				System.out.println("The amount entered is not correct!");

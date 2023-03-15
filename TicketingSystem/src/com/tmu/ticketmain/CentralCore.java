@@ -39,7 +39,7 @@ public class CentralCore {
                 //readin user inputs and assess them
                 System.out.println("Enter a command, or 'Commands' for a list of commands.");
                 userInput = stdIn.readLine();
-                if(userInput.equals("Login")){
+                if(userInput.equals("Login") && activeUser == null){
                     System.out.println("Please enter your username.");
                     String loginUser = stdIn.readLine();
                    
@@ -59,7 +59,7 @@ public class CentralCore {
                     break;
                 }else if(userInput.equals("Commands")){
                     getUserOperations();
-                }else if(userInput.equals("Logout")){
+                }else if(userInput.equals("Logout") && activeUser != null){
                     logout();
                 }else if(userInput.equals("Create") && activeUser != null && activeUser.getUsertype().equals("AA")){
                     
@@ -135,6 +135,7 @@ public class CentralCore {
         Daily_Transaction_File.createOrUpdateDailyFile();
 
         System.out.println("Logout successful.");
+        System.out.println("Created daily transaction file.");
     }
     
     // public void createDailyTransaction(int transCode, String userName, String userType, int userCredit){
