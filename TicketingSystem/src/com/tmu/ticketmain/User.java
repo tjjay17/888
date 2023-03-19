@@ -73,7 +73,7 @@ public abstract class User {
 		List<Ticket> tickets = CentralCore.getTickets();
 		for(int i = 0; i < tickets.size(); i++){
 			if(tickets.get(i).getEventName().equals(eventName) && tickets.get(i).getSellerUsername().equals(sellerName)){
-				return true;
+			     return true;
 			}
 		}
 
@@ -94,7 +94,7 @@ public abstract class User {
 			String fileLine = "";
 
 			while((fileLine = fr.readLine()) != null){
-				ticketContents.add(fileLine);
+			       ticketContents.add(fileLine);
 			}
 
 			pw = new PrintWriter(ticketFile);
@@ -112,7 +112,7 @@ public abstract class User {
 
 			for(int i = 0; i < ticketContents.size(); i++){
 				if(i != 0){
-					fw.newLine();
+				      fw.newLine();
 				}
 				fw.append(ticketContents.get(i));
 			}
