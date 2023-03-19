@@ -479,6 +479,96 @@ public class CentralCore {
             System.out.println("Error: " + e.getMessage());
         }
     }
+	
+	//Buy file change
+    public static void buyFileChange(String username, double ticketPrice, int ticketQuantity ){
+        String user = username.trim();
+        double oldCredit, newCredit;
+        List<String> userContents = new ArrayList<String>();
+
+        String fileLine;
+        File userFile = new File("users.txt");
+
+        try {
+            BufferedReader rw = new BufferedReader(new FileReader(userFile));
+            BufferedWriter fw = new BufferedWriter(new FileWriter(userFile, true));
+            PrintWriter pw;
+
+            while ((fileLine = rw.readLine()) != null) {
+
+                if (fileLine.substring(0, 16).trim().equals(user)) {
+                    oldCredit = Double.parseDouble(fileLine.substring(19, 28).trim());
+                    fileLine = fileLine.substring(0, 19);
+                    newCredit = oldCredit - (ticketPrice * ticketQuantity);
+                    fileLine = fileLine + Admin.creditFormatter(newCredit);
+                }
+
+                userContents.add(fileLine);
+            }
+            pw = new PrintWriter(userFile);
+
+            for (int i = 0; i < userContents.size(); i++) {
+                if (i != 0) {
+                    fw.newLine();
+                }
+
+                fw.append(userContents.get(i));
+            }
+
+            pw.close();
+            rw.close();
+            fw.close();
+
+        }catch(Exception e){
+        System.out.println("Error: " + e.getMessage());
+        }
+
+    }
+
+    //Sell file change
+    public static void sellFileChange(String username, double ticketPrice, int ticketQuantity ){
+        String user = username.trim();
+        double oldCredit, newCredit;
+        List<String> userContents = new ArrayList<String>();
+
+        String fileLine;
+        File userFile = new File("users.txt");
+
+        try {
+            BufferedReader rw = new BufferedReader(new FileReader(userFile));
+            BufferedWriter fw = new BufferedWriter(new FileWriter(userFile, true));
+            PrintWriter pw;
+
+            while ((fileLine = rw.readLine()) != null) {
+
+                if (fileLine.substring(0, 16).trim().equals(user)) {
+                    oldCredit = Double.parseDouble(fileLine.substring(19, 28).trim());
+                    fileLine = fileLine.substring(0, 19);
+                    newCredit = oldCredit + (ticketPrice * ticketQuantity);
+                    fileLine = fileLine + Admin.creditFormatter(newCredit);
+                }
+
+                userContents.add(fileLine);
+            }
+            pw = new PrintWriter(userFile);
+
+            for (int i = 0; i < userContents.size(); i++) {
+                if (i != 0) {
+                    fw.newLine();
+                }
+
+                fw.append(userContents.get(i));
+            }
+
+            pw.close();
+            rw.close();
+            fw.close();
+
+        }catch(Exception e){
+            System.out.println("Error: " + e.getMessage());
+        }
+
+    }
     
 }
     
