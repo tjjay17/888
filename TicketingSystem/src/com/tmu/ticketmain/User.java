@@ -239,22 +239,22 @@ public abstract class User {
                                             //Save this information in the dailytransaction list and buy/sell transaction list
                                             CentralCore.addBuyTransaction(04, eventName, sellerUsername, ticketQuantity, Price);
                                             CentralCore.addBuySellTransaction(04, eventName, sellerUsername, ticketQuantity, Price);
-											//break out of this loop.
+					    //break out of this loop.
                                             break;
                                         }
                                     }
-									break;
+				     break;
                                 case "No":
                                     System.out.println("Transaction cancelled.");
-									flag = false;
+				    flag = false;
                                     break;
 
                                 default:
                                     System.out.println("You entered an invalid option");
-									flag = false;
+				    flag = false;
                                     break;
                             }
-							break;
+			     break;
                         }else if(i == CentralCore.getTickets().size() - 1){
 							System.out.println("Wrong seller name, too many tickets requested or wrong event name.");
 							flag = false;
