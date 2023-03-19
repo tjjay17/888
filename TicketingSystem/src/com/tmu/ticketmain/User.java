@@ -232,6 +232,8 @@ public abstract class User {
 											modifyTicketFileBuy(eventName, sellerUsername, Price, ticketQuantity);
                                             System.out.println("Transaction processed successfully");
                                             System.out.println("Added buy transaction to daily transaction list.");
+					    CentralCore.buyFileChange(this.username,Price,ticketQuantity);
+                                            CentralCore.sellFileChange(sellerUsername,Price,ticketQuantity);
                                             flag = false;
 
                                             //Save this information in the dailytransaction list and buy/sell transaction list
