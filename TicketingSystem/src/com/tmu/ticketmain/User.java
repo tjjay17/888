@@ -300,40 +300,49 @@ public abstract class User {
             salePrice = scan1.nextDouble();
 
             try {
-                //check if event name is legal
-				if(!checkTicketExists(eventName, this.getUsername())){
-					if (eventName.length() > 0 && eventName.length() <26){
-						// check if sale price is legal
-						if ( salePrice> 0 && salePrice <= 999.99){
 
-							// check if the number of tickets for sale is legal
-							if(ticketQuantity > 0 && ticketQuantity <= 100){
+                for (int i=0;i<CentralCore.getTickets().size();i++){
+                    //check if event name is legal
+                    if(!checkEventName(i,eventName)){
+                        if (eventName.length() > 0 && eventName.length() <26){
+                            // check if sale price is legal
+                            if ( salePrice> 0 && salePrice <= 999.99){
 
-								System.out.println("All the information entered is legal, event has been created.");
-                                System.out.println("Added sell transaction to daily transaction list.");
-								flag = false;
+                                // check if the number of tickets for sale is legal
+                                if(ticketQuantity > 0 && ticketQuantity <= 100){
 
-								//Save this information in the dailytransaction file and buy/sell transaction file
-								CentralCore.addSellTransaction(03, eventName, this.username, ticketQuantity, salePrice);
-								CentralCore.addBuySellTransaction(03, eventName, this.username, ticketQuantity, salePrice);
-								//modify the tickets for sale
-								modifyTicketFileSell(eventName, this.getUsername(), ticketQuantity, salePrice);
-								break;
-							}else{
-								System.out.println("The number of tickets for sale is illegal. Try again.");
-								continue;
-							}
-						}else{
-							System.out.println("The price of tickets for sale is illegal. Try again.");
-							continue;
-						}
-					} else {
-						System.out.println("The event name length must be between 0 and 26. Try again.");
-						continue;
-					}
-				}else{
-					System.out.println("You are already selling this event. Try again.");
-				}
+                                    System.out.println("All the information entered is legal, event has been created.");
+                                    System.out.println("Added sell transaction to daily transaction list.");
+                                    flag = false;
+
+                                    //Save this information in the dailytransaction file and buy/sell transaction file
+                                    CentralCore.addSellTransaction(03, eventName, this.username, ticketQuantity, salePrice);
+                                    CentralCore.addBuySellTransaction(03, eventName, this.username, ticketQuantity, salePrice);
+                                    //modify the tickets for sale
+                                    modifyTicketFileSell(eventName, this.getUsername(), ticketQuantity, salePrice);
+                                    flag = false;
+                                    break;
+                                }else{
+                                    System.out.println("The number of tickets for sale is illegal. Try again.");
+                                    flag=false;
+                                    break;
+                                }
+                            }else{
+                                System.out.println("The price of tickets for sale is illegal. Try again.");
+                                flag=false;
+                                break;
+                            }
+                        } else {
+                            System.out.println("The event name length must be between 0 and 26. Try again.");
+                            flag=false;
+                            break;
+                        }
+                    }else{
+                        System.out.println("You are already selling this event. Try again.");
+                        flag=false;
+                        break;
+                    }
+                }
             }
             //catch every possible exception
             catch (Exception e) {
