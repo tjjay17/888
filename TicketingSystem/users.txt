@@ -1,9 +1,14 @@
-admin           AA 100000.00 
-buyer           BS 50.000000
-seller          SS 100.00000 
+admin           AA 99991.000
+buyer           BS 80.000000
+seller          SS 25.000000
 fullStandard    FS 75.000000 
-Arnold          FS 200.00000
-Thanooj         FS 200.00000
+Arnold          FS 230.00000
 Daniel          FS 200.00000
-Sarah           BS 300.00000
-END 
+Sarah           BS 420.00000
+jimbo           AA 145.20000
+bobbby          FS 88.000000
+pibbles         FS 594.80000
+Michael         SS 80.000000
+madeline        BS 20.000000
+Jamie           BS 20.000000
+END                         

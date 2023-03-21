@@ -42,10 +42,11 @@ public class DailyTransaction {
     }
 
     //add credit
-    DailyTransaction(int code, String addCredUser, double credit){
+    DailyTransaction(String addCredUser, double credit, int code, String userType){
         this.code = code;
         this.addCredUser = addCredUser;
         this.credit = credit;
+        this.userType = userType;
     }
 
     //refunds
@@ -64,7 +65,7 @@ public class DailyTransaction {
         this.credit = credit;
     }
 
-    //create user transaction
+    //create user transaction or delete
     DailyTransaction(int code, String userName, double credit, String userType){
         this.code = code;
         this.generalUser = userName;
@@ -112,5 +113,8 @@ public class DailyTransaction {
         return this.generalUser;
     }
 
-}
+    public String getUserType(){
+        return this.userType;
+    }
 
+}
