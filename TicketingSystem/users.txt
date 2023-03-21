@@ -6,9 +6,10 @@ Arnold          FS 230.00000
 Daniel          FS 200.00000
 Sarah           BS 420.00000
 jimbo           AA 145.20000
-bobbby          FS 88.000000
-pibbles         FS 594.80000
+bobbby          FS 988.00000
+pibbles         FS 1169.6000
 Michael         SS 80.000000
 madeline        BS 20.000000
 Jamie           BS 20.000000
+testttt         BS 300.00000
 END                         

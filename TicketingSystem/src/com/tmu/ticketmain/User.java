@@ -228,8 +228,8 @@ public abstract class User {
                                             System.out.println("The user does not have enough credit to complete this transaction.");
                                             continue;
                                         } else{
-											modifyTicketinStock(i, ticketQuantity);
-											modifyTicketFileBuy(eventName, sellerUsername, Price, ticketQuantity);
+											//modifyTicketinStock(i, ticketQuantity);
+											//modifyTicketFileBuy(eventName, sellerUsername, Price, ticketQuantity);
                                             System.out.println("Transaction processed successfully");
                                             System.out.println("Added buy transaction to daily transaction list.");
 					    CentralCore.buyFileChange(this.username,Price,ticketQuantity);
@@ -317,7 +317,7 @@ public abstract class User {
 								CentralCore.addSellTransaction(03, eventName, this.username, ticketQuantity, salePrice);
 								CentralCore.addBuySellTransaction(03, eventName, this.username, ticketQuantity, salePrice);
 								//modify the tickets for sale
-								modifyTicketFileSell(eventName, this.getUsername(), ticketQuantity, salePrice);
+								//modifyTicketFileSell(eventName, this.getUsername(), ticketQuantity, salePrice);
 								break;
 							}else{
 								System.out.println("The number of tickets for sale is illegal. Try again.");
