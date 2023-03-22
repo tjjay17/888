@@ -232,14 +232,14 @@ public abstract class User {
 											//modifyTicketFileBuy(eventName, sellerUsername, Price, ticketQuantity);
                                             System.out.println("Transaction processed successfully");
                                             System.out.println("Added buy transaction to daily transaction list.");
-					    CentralCore.buyFileChange(this.username,Price,ticketQuantity);
-                                            CentralCore.sellFileChange(sellerUsername,Price,ticketQuantity);
+					                        // CentralCore.buyFileChange(this.username,Price,ticketQuantity);
+                                            //CentralCore.sellFileChange(sellerUsername,Price,ticketQuantity);
                                             flag = false;
 
                                             //Save this information in the dailytransaction list and buy/sell transaction list
                                             CentralCore.addBuyTransaction(04, eventName, sellerUsername, ticketQuantity, Price);
                                             CentralCore.addBuySellTransaction(04, eventName, sellerUsername, ticketQuantity, Price);
-					    //break out of this loop.
+					                        //break out of this loop.
                                             break;
                                         }
                                     }
@@ -359,7 +359,7 @@ public abstract class User {
 			//Save this information in the dailytransaction file
 			CentralCore.addCreditTransaction(this.username, credit_to_add, 6, this.usertype);
 			User currUser = CentralCore.findUser(username);
-			CentralCore.addCredFileChange(currUser.getUsername(), credit_to_add);
+			//CentralCore.addCredFileChange(currUser.getUsername(), credit_to_add);
 			currUser.setCredit(currUser.getCredit() + credit_to_add);
 			System.out.println("New credit is: " + currUser.getCredit());
             System.out.println("Added add credit transaction to daily transaction list.");
@@ -370,13 +370,11 @@ public abstract class User {
 	    }
 
 	    catch (InputMismatchException ex) {
-		
 		System.out.println("Try again!");	
-
 	    } 
 
 	}while(flag == true);
 
-     }
+    }
 
 }

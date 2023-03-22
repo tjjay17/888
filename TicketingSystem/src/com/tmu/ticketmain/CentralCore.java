@@ -39,8 +39,6 @@ public class CentralCore {
             }
         });
 
-        CentralCore.processFileChanges();
-
         if(args.length > 0){
             System.out.println("No args needed.");
         }
@@ -55,6 +53,7 @@ public class CentralCore {
 
             while(true){
                 //readin user inputs and assess them
+                CentralCore.processFileChanges();
                 System.out.println("Enter a command, or 'Commands' for a list of commands.");
                 userInput = stdIn.readLine();
                 if(userInput.equals("Login") && activeUser == null){
@@ -343,18 +342,22 @@ public class CentralCore {
             }catch(Exception e){
                 System.out.println(e);
             }
-            
         }
     }
 
     public static void applyDtfChanges(String dtfFileParam){
         String dtfFile = "../DailyTransactionFiles/" + dtfFileParam;
         try{
+            //system files
             File userFile = new File("../users.txt");
             File ticketFile = new File("../tickets.txt");
+            File errorFile = new File("../error.txt");
+
+            //filereaders
             BufferedReader rw = new BufferedReader(new FileReader(dtfFile));
             BufferedWriter userfw = new BufferedWriter(new FileWriter(userFile, true));
             BufferedWriter ticketfw = new BufferedWriter(new FileWriter(ticketFile, true));
+            BufferedWriter errorfw = new BufferedWriter(new FileWriter(errorFile, true));
 
             String dtf_line = "";
             List<String> userLines = CentralCore.userFileLines();
@@ -386,11 +389,15 @@ public class CentralCore {
                         rewriteUsers(userLines);
                     }else if(userIndex != -1 && code.equals("01")){
                         //log a create error
+                        errorfw.append("ERROR: Create transaction, user not found " + dtf_line);
+                        errorfw.newLine();
                     }else if(userIndex != -1 && code.equals("02")){
                         userLines.remove(userIndex);
                         rewriteUsers(userLines);
                     }else if(userIndex == -1 && code.equals("02")){
                         //log a delete error
+                        errorfw.append("ERROR: Delete transaction, user not found " + dtf_line);
+                        errorfw.newLine();
                     }else if(userIndex != -1 && code.equals("06")){
                         double oldCredit = Double.parseDouble(userLines.get(userIndex).substring(19, 28).trim());
                         double newCredit = oldCredit + Double.parseDouble(credit);
@@ -399,6 +406,8 @@ public class CentralCore {
                         rewriteUsers(userLines);
                     }else if(userIndex == -1 && code.equals("06")){
                         //log addcred error
+                        errorfw.append("ERROR: Add credit transaction, user not found " + dtf_line);
+                        errorfw.newLine();
                     }
                 }else if(code.equals("05")){
                     String buyerName = dtfLineSplit[1];
@@ -430,19 +439,25 @@ public class CentralCore {
                     if(buyerIndex == -1 || sellerIndex == -1){
                         if(buyerIndex == -1){
                             //buyer finding error
+                            errorfw.append("ERROR: Refund transaction, buyer user not found " + dtf_line);
+                            errorfw.newLine();
                         }
 
                         if(sellerIndex == -1){
                             //seller finding error
+                            errorfw.append("ERROR: Refund transaction, seller user not found " + dtf_line);
+                            errorfw.newLine();
                         }
                     }else if(sellerFundsErr){
                         //log the funds error - seller can't have neg funds
+                        errorfw.append("ERROR: Refund transaction, seller cannot have negative funds " + dtf_line);
+                        errorfw.newLine();
                     }else if(sellerIndex != -1 && buyerIndex != -1){
                         userLines.set(sellerIndex, sellerNewLine);
                         userLines.add(buyerIndex ,buyerNewLine);
                         rewriteUsers(userLines);
                     }
-                }else if(code.equals("03")){
+                }else if(code.equals("04")){
                     String eventName = dtfLineSplit[1];
                     String sellerName = dtfLineSplit[2];
                     String ticketNum = dtfLineSplit[3];
@@ -457,8 +472,8 @@ public class CentralCore {
                             sellerIndex = i;
                             String sellerNameCurr = userLines.get(i).substring(0, 16).trim();
                             String typeCurr = userLines.get(i).substring(16, 19).trim();
-                            String creditCurr = userLines.get(i).substring(19, 28).trim() + Integer.parseInt(ticketNum) * Double.parseDouble(ticketPrice);
-                            newUserLine = sellerNameCurr + " " + typeCurr + creditCurr;
+                            double creditCurr = Double.parseDouble(userLines.get(i).substring(19, 28).trim()) + Integer.parseInt(ticketNum) * Double.parseDouble(ticketPrice);
+                            newUserLine = Admin.userFormatter(sellerNameCurr) + " " + Admin.typeFormatter(typeCurr) + Admin.creditFormatter(creditCurr);
                         }
                     }
 
@@ -482,21 +497,29 @@ public class CentralCore {
                             ticketLines.set(ticketIndex, newTicketLine);
                             rewriteTickets(ticketLines);
                         }else{
-                            //negative ticket error
+                            errorfw.append("ERROR: Sell transaction, cannot have negative number of tickets for sale " + dtf_line);
+                            errorfw.newLine();
                         }
                     }else if(sellerIndex == -1){
                         //seller not found
+                        errorfw.append("ERROR: Sell transaction, seller user not found " + dtf_line);
+                        errorfw.newLine();
                     }else if(ticketIndex == -1){
                         //event not found
+                        errorfw.append("ERROR: Sell transaction, event not found " + dtf_line);
+                        errorfw.newLine();
                     }
-                }else if(code.equals("04")){
+                }else if(code.equals("03")){
                     String eventName = dtfLineSplit[1];
                     String sellerName = dtfLineSplit[2];
                     int ticketNum = Integer.parseInt(dtfLineSplit[3]);
                     double ticketPrice = Double.parseDouble(dtfLineSplit[4]);
 
                     String ticketToAdd = Ticket.formatEventName(eventName) + Ticket.formatSellerName(sellerName) + Ticket.formatTicketQuantity(ticketNum) + Ticket.formatSellerPrice(ticketPrice);
+                    String END = ticketLines.remove(ticketLines.size() - 1);
                     ticketLines.add(ticketToAdd);
+                    ticketLines.add(END);
+
                     rewriteTickets(ticketLines);
                 }
             }
@@ -565,16 +588,18 @@ public class CentralCore {
     public static void rewriteTickets(List<String> ticketLines){
         try{
             PrintWriter pw = new PrintWriter("../tickets.txt");
+            BufferedWriter bw = new BufferedWriter(new FileWriter("../tickets.txt", true));
             for(int i = 0; i < ticketLines.size(); i++){
-                pw.append(ticketLines.get(i));
+                bw.append(ticketLines.get(i));
+                bw.newLine();
             }
             pw.close();
+            bw.close();
 
         }catch(Exception e){
             System.out.println("rewrite tickets error " + e);
         }
     }
-
 
     /********************************************************************************************************************************* 
     *******************************************************DO NOT DELETE THE CODE BELOW ***************************************************

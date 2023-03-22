@@ -248,7 +248,6 @@ public class Admin extends User {
             }
             addCredits_active = false;
         }
-        userInput.close();
         return storedList;
     }
 
@@ -343,7 +342,6 @@ public class Admin extends User {
             }
             createUser_active = false;
         }
-        userInput.close();
         return storedList;
     }
 
