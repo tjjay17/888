@@ -17,16 +17,16 @@ public class Daily_Transaction_File {
 
     public static void createOrUpdateDailyFile(){
         //daily trans file written based on date
-        Calendar calendarToday = Calendar.getInstance();
-        Date d = calendarToday.getTime();
+        // Calendar calendarToday = Calendar.getInstance();
+        // Date d = calendarToday.getTime();
 
-        String date = new SimpleDateFormat("dd").format(d);
-        String month = new SimpleDateFormat("MM").format(d);
-        String year = new SimpleDateFormat("yyyy").format(d);
+        // String date = new SimpleDateFormat("dd").format(d);
+        // String month = new SimpleDateFormat("MM").format(d);
+        // String year = new SimpleDateFormat("yyyy").format(d);
         List<DailyTransaction> transList = CentralCore.getTransactions();
 
         //file format - dtf_year_month_date.txt
-        File dtf = new File("DailyTransactionFiles/dtf" + "_" +  year + "_" + month + "_" + date + ".txt");
+        File dtf = new File("../DailyTransactionFiles/dtf_temp.txt");
         
         try{
             BufferedWriter fw = new BufferedWriter( new FileWriter(dtf, true));

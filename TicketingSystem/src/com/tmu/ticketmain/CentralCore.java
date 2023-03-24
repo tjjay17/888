@@ -50,10 +50,10 @@ public class CentralCore {
         try(BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))){
             //prompts can be changed
             System.out.println("Welcome to the ticket system");
+            CentralCore.processFileChanges();
 
             while(true){
                 //readin user inputs and assess them
-                CentralCore.processFileChanges();
                 System.out.println("Enter a command, or 'Commands' for a list of commands.");
                 userInput = stdIn.readLine();
                 if(userInput.equals("Login") && activeUser == null){
@@ -249,7 +249,7 @@ public class CentralCore {
 // populate ticketList with tickets from tickets.txt file
     public static void readTickets() throws FileNotFoundException, IOException{
 
-        File inputFile = new File("tickets.txt");
+        File inputFile = new File("../tickets.txt");
     	BufferedReader reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
@@ -272,7 +272,7 @@ public class CentralCore {
     
     public static void readUsers() throws FileNotFoundException, IOException{
 
-        File inputFile = new File("users.txt");
+        File inputFile = new File("../users.txt");
     	BufferedReader reader = new BufferedReader(new FileReader(inputFile));
     	String currentLine = reader.readLine();
 
@@ -304,25 +304,16 @@ public class CentralCore {
         Calendar calendarYesterday = Calendar.getInstance();
         Date date_today = calendarToday.getTime();
         Date date_yesterday = calendarYesterday.getTime();
-        
-        String today_day = new SimpleDateFormat("dd").format(date_today);
-        String today_month = new SimpleDateFormat("MM").format(date_today);
-        String today_year = new SimpleDateFormat("yyyy").format(date_today);
-
-        //CHANGE TO YESTERDAY DATE THIS STUFF
-        String yesterday_day = new SimpleDateFormat("dd").format(date_today);
-        String yesterday_month = new SimpleDateFormat("MM").format(date_today);
-        String yesterday_year = new SimpleDateFormat("yyyy").format(date_today);
 
         //We can check to see if a dtf from the previous day exists. 
         //if it does, then we simply process those transactions, add them to a merged dtf, and then delete that dtf.
-        String dtfFile = "dtf_" + yesterday_year + "_" + yesterday_month + "_" + yesterday_day + ".txt";
-        File dtfYesterday = new File("DailyTransactionFiles/" + dtfFile);
-        File mergedDtf = new File("DailyTransactionFiles/dtf_merged.txt");
+        String dtfTemp = "../DailyTransactionFiles/dtf_temp.txt";
+        File dtfTempFile = new File(dtfTemp);
+        File mergedDtf = new File("../DailyTransactionFiles/dtf_merged.txt");
 
-        if(dtfYesterday.exists()){
+        if(dtfTempFile.exists()){
             try{
-                BufferedReader rw = new BufferedReader(new FileReader("DailyTransactionFiles/" + dtfFile));
+                BufferedReader rw = new BufferedReader(new FileReader(dtfTemp));
                 BufferedWriter fw = new BufferedWriter( new FileWriter(mergedDtf, true));
                 String dtf_line = "";
 
@@ -334,23 +325,22 @@ public class CentralCore {
                 fw.append("00");
                 fw.newLine();
 
-                CentralCore.applyDtfChanges(dtfFile);
+                CentralCore.applyDtfChanges(dtfTemp);
                 rw.close();
                 fw.close();
-                dtfYesterday.delete();
+                dtfTempFile.delete();
             }catch(Exception e){
                 System.out.println(e);
             }
         }
     }
 
-    public static void applyDtfChanges(String dtfFileParam){
-        String dtfFile = "DailyTransactionFiles/" + dtfFileParam;
+    public static void applyDtfChanges(String dtfFile){
         try{
             //system files
-            File userFile = new File("users.txt");
-            File ticketFile = new File("tickets.txt");
-            File errorFile = new File("error.txt");
+            File userFile = new File("../users.txt");
+            File ticketFile = new File("../tickets.txt");
+            File errorFile = new File("../error.txt");
 
             //filereaders
             BufferedReader rw = new BufferedReader(new FileReader(dtfFile));
@@ -367,23 +357,27 @@ public class CentralCore {
                 String code = dtfLineSplit[0];
 
                 if(code.equals("01") || code.equals("02") || code.equals("06")){
-                    String username = dtfLineSplit[1];
-                    String type = dtfLineSplit[2];
-                    String credit = dtfLineSplit[3];
+
+                    String username = dtfLineSplit[1].trim();
+                    String type = dtfLineSplit[2].trim();
+                    String credit = dtfLineSplit[3].trim();
                     int userIndex = -1;
 
                     if(username.trim().length() > 15){
-                        errorfw.append("ERROR: username longer than 15 characters " + dtfFileParam);
+                        errorfw.append("ERROR: username longer than 15 characters " + dtfFile);
+                        errorfw.newLine();
                         break;
                     }
 
-                    if(!type.equals("AA") || !type.equals("BS") || !type.equals("SS") || !type.equals("FS")){
-                        errorfw.append("ERROR: Invalid type " + dtfFileParam);
+                    if(!type.equals("AA") && !type.equals("BS") && !type.equals("SS") && !type.equals("FS")){
+                        errorfw.append("ERROR: Invalid type " + dtfFile);
+                        errorfw.newLine();
                         break;
                     }
 
                     if(Double.parseDouble(credit) < 0){
-                        errorfw.append("ERROR: Negative Credit " + dtfFileParam);
+                        errorfw.append("ERROR: Negative Credit " + dtfFile);
+                        errorfw.newLine();
                         break;
                     }
 
@@ -395,7 +389,7 @@ public class CentralCore {
                         }
                     }
 
-                    if(userIndex == -1 && code.equals(01)){
+                    if(userIndex == -1 && code.equals("01")){
                         String END = userLines.remove(userLines.size() - 1);
                         String lineToAdd = Admin.userFormatter(username) + " " + Admin.typeFormatter(type) + Admin.creditFormatter(Double.parseDouble(credit));
                         userLines.add(lineToAdd);
@@ -434,17 +428,20 @@ public class CentralCore {
                     String sellerNewLine = "";
 
                     if(buyerName.trim().length() > 15){
-                        errorfw.append("ERROR: Buyer name longer than 15 characters " + dtfFileParam);
+                        errorfw.append("ERROR: Buyer name longer than 15 characters " + dtfFile);
+                        errorfw.newLine();
                         break;
                     }
 
                     if(sellerName.trim().length() > 15){
-                        errorfw.append("ERROR: Seller name longer than 15 characters " + dtfFileParam);
+                        errorfw.append("ERROR: Seller name longer than 15 characters " + dtfFile);
+                        errorfw.newLine();
                         break;
                     }
 
                     if(Double.parseDouble(refundAmt) < 0){
-                        errorfw.append("ERROR: Negative refund amount" + dtfFileParam);
+                        errorfw.append("ERROR: Negative refund amount" + dtfFile);
+                        errorfw.newLine();
                         break;
                     }
 
@@ -487,8 +484,8 @@ public class CentralCore {
                         rewriteUsers(userLines);
                     }
                 }else if(code.equals("04")){
-                    String eventName = dtfLineSplit[1];
-                    String sellerName = dtfLineSplit[2];
+                    String eventName = dtfLineSplit[1].trim();
+                    String sellerName = dtfLineSplit[2].trim();
                     String ticketNum = dtfLineSplit[3];
                     String ticketPrice = dtfLineSplit[4];
                     String newUserLine = "";
@@ -498,11 +495,14 @@ public class CentralCore {
 
                     if(sellerName.trim().length() > 15){
                         errorfw.append("ERROR: Seller name longer than 15 characters " + dtf_line);
+                        errorfw.newLine();
                         break;
                     }
 
                     for(int i = 0; i < userLines.size(); i++){
-                        if(userLines.get(i).substring(0, 16).equals(sellerName)){
+                        System.out.println(userLines.get(i).substring(0, 16).trim());
+                        System.out.println(sellerName);
+                        if(userLines.get(i).substring(0, 16).trim().equals(sellerName)){
                             sellerIndex = i;
                             String sellerNameCurr = userLines.get(i).substring(0, 16).trim();
                             String typeCurr = userLines.get(i).substring(16, 19).trim();
@@ -512,10 +512,11 @@ public class CentralCore {
                     }
 
                     for(int j = 0; j < ticketLines.size(); j++){
-                        String currTicketEvent = ticketLines.get(j).substring(0, 26);
-                        String currTicketSeller = ticketLines.get(j).substring(26, 40);
+                        String currTicketEvent = ticketLines.get(j).substring(0, 26).trim();
+                        String currTicketSeller = ticketLines.get(j).substring(26, 40).trim();
                         if(eventName.equals(currTicketEvent) && sellerName.equals(currTicketSeller)){
                             ticketIndex = j;
+                            break;
                         }
                     }
 
@@ -525,22 +526,22 @@ public class CentralCore {
                         int fileTickets = Integer.parseInt(ticketLines.get(ticketIndex).substring(41, 44).trim()) - Integer.parseInt(ticketNum);
                         double filePrice = Double.parseDouble(ticketLines.get(ticketIndex).substring(45, 51).trim());
                         
-                        if(fileTickets > 0){
+                        if(fileTickets >= 0){
                             String newTicketLine = Ticket.formatEventName(fileEventName) + Ticket.formatSellerName(fileSellerName) + Ticket.formatTicketQuantity(fileTickets) + Ticket.formatSellerPrice(filePrice);
                             userLines.set(sellerIndex, newUserLine);
                             ticketLines.set(ticketIndex, newTicketLine);
                             rewriteTickets(ticketLines);
                         }else{
-                            errorfw.append("ERROR: Sell transaction, cannot have negative number of tickets for sale " + dtf_line);
+                            errorfw.append("ERROR: Buy transaction, cannot have negative number of tickets for sale " + dtf_line);
                             errorfw.newLine();
                         }
                     }else if(sellerIndex == -1){
                         //seller not found
-                        errorfw.append("ERROR: Sell transaction, seller user not found " + dtf_line);
+                        errorfw.append("ERROR: Buy transaction, seller user not found " + dtf_line);
                         errorfw.newLine();
                     }else if(ticketIndex == -1){
                         //event not found
-                        errorfw.append("ERROR: Sell transaction, event not found " + dtf_line);
+                        errorfw.append("ERROR: Buy transaction, event not found " + dtf_line);
                         errorfw.newLine();
                     }
                 }else if(code.equals("03")){
@@ -561,6 +562,7 @@ public class CentralCore {
             userfw.close();
             rw.close();
             ticketfw.close();
+            errorfw.close();
         }catch (Exception e){
             System.out.println("Dtf apply error" + e + "line number: " + e.getStackTrace()[0].getLineNumber());
         }
@@ -570,7 +572,7 @@ public class CentralCore {
         List<String> userLines = new ArrayList<String>();
         String userLine = "";
 
-        File userFile = new File("users.txt");
+        File userFile = new File("../users.txt");
         try{
             BufferedReader fr = new BufferedReader(new FileReader(userFile));
             while((userLine = fr.readLine()) != null){
@@ -588,7 +590,7 @@ public class CentralCore {
         List<String> ticketLines = new ArrayList<String>();
         String ticketLine = "";
 
-        File ticketFile = new File("tickets.txt");
+        File ticketFile = new File("../tickets.txt");
         try{
             BufferedReader fr = new BufferedReader(new FileReader(ticketFile));
             while((ticketLine = fr.readLine()) != null){
@@ -605,8 +607,8 @@ public class CentralCore {
     public static void rewriteUsers(List<String> userLines){
         try{
             //erase everything
-            PrintWriter pw = new PrintWriter("users.txt");
-            BufferedWriter bw = new BufferedWriter(new FileWriter("users.txt", true));
+            PrintWriter pw = new PrintWriter("../users.txt");
+            BufferedWriter bw = new BufferedWriter(new FileWriter("../users.txt", true));
             for(int i = 0; i < userLines.size(); i++){
                 bw.append(userLines.get(i));
                 bw.newLine();
@@ -621,8 +623,8 @@ public class CentralCore {
 
     public static void rewriteTickets(List<String> ticketLines){
         try{
-            PrintWriter pw = new PrintWriter("tickets.txt");
-            BufferedWriter bw = new BufferedWriter(new FileWriter("tickets.txt", true));
+            PrintWriter pw = new PrintWriter("../tickets.txt");
+            BufferedWriter bw = new BufferedWriter(new FileWriter("../tickets.txt", true));
             for(int i = 0; i < ticketLines.size(); i++){
                 bw.append(ticketLines.get(i));
                 bw.newLine();
@@ -647,7 +649,7 @@ public class CentralCore {
         List<String> userContents = new ArrayList<String>();
 
         String fileLine;
-        File userFile = new File("users.txt");
+        File userFile = new File("../users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));
@@ -660,7 +662,7 @@ public class CentralCore {
             }
 
             //this line deletes contents of current file
-            pw = new PrintWriter("users.txt");
+            pw = new PrintWriter("../users.txt");
             //rewrite every single old line except "END"
             for(int i = 0 ; i < userContents.size() - 1; i++){
                 if(i != 0){
@@ -692,7 +694,7 @@ public class CentralCore {
 
         List<String> userContents = new ArrayList<String>();
         String fileLine;
-        File userFile = new File("users.txt");
+        File userFile = new File("../users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));
@@ -730,7 +732,7 @@ public class CentralCore {
         double oldCredit, newCredit;
 
         String fileLine;
-        File userFile = new File("users.txt");
+        File userFile = new File("../users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));
@@ -778,8 +780,7 @@ public class CentralCore {
         List<String> userContents = new ArrayList<String>();
 
         String fileLine;
-        //FOR THANOOJ - File userFile = new File("users.txt");
-        File userFile = new File("users.txt");
+        File userFile = new File("../users.txt");
 
         try{
             BufferedReader rw = new BufferedReader(new FileReader(userFile));
@@ -822,7 +823,7 @@ public class CentralCore {
         List<String> userContents = new ArrayList<String>();
 
         String fileLine;
-        File userFile = new File("users.txt");
+        File userFile = new File("../users.txt");
 
         try {
             BufferedReader rw = new BufferedReader(new FileReader(userFile));
@@ -867,7 +868,7 @@ public class CentralCore {
         List<String> userContents = new ArrayList<String>();
 
         String fileLine;
-        File userFile = new File("users.txt");
+        File userFile = new File("../users.txt");
 
         try {
             BufferedReader rw = new BufferedReader(new FileReader(userFile));

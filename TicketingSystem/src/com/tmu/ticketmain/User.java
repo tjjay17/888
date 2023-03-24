@@ -86,7 +86,7 @@ public abstract class User {
 
 	public void modifyTicketFileBuy(String eventName, String sellerName, double price, int ticketQuantity){
 		try{
-			File ticketFile = new File("tickets.txt");
+			File ticketFile = new File("../tickets.txt");
 			PrintWriter pw;
 			BufferedWriter fw = new BufferedWriter( new FileWriter(ticketFile, true));
 			BufferedReader fr = new BufferedReader( new FileReader(ticketFile));
@@ -129,7 +129,7 @@ public abstract class User {
 
 	public void modifyTicketFileSell(String eventName, String sellerName, int ticketQuantity, double price){
 		try{
-			File ticketFile = new File("tickets.txt");
+			File ticketFile = new File("../tickets.txt");
 			PrintWriter pw;
 			BufferedWriter fw = new BufferedWriter( new FileWriter(ticketFile, true));
 			BufferedReader fr = new BufferedReader( new FileReader(ticketFile));
