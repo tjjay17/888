@@ -256,13 +256,13 @@ public abstract class User {
                             }
 			     break;
                         }else if(i == CentralCore.getTickets().size() - 1){
-							System.out.println("Wrong seller name, too many tickets requested or wrong event name.");
-							flag = false;
-							break;
-						}
-						if(validUserInput){
-							break;
-						}
+				System.out.println("Wrong seller name, too many tickets requested or wrong event name.");
+				flag = false;
+				break;
+					}
+			if(validUserInput){
+				break;
+			}
                     }
                 }
             }
