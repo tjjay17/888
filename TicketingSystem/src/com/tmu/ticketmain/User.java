@@ -259,7 +259,7 @@ public abstract class User {
 				System.out.println("Wrong seller name, too many tickets requested or wrong event name.");
 				flag = false;
 				break;
-					}
+			}
 			if(validUserInput){
 				break;
 			}
