@@ -1,0 +1,10 @@
+ERROR: Invalid type ../DailyTransactionFiles/dtf_temp.txt
+ERROR: Invalid type ../DailyTransactionFiles/dtf_temp.txt
+ERROR: Invalid type ../DailyTransactionFiles/dtf_temp.txt
+
+ERROR: Buy transaction, event not found 04_new event_pibbles_4_90.0
+ERROR: Buy transaction, seller user not found 04_Random event_Thanooj_2_100.0
+ERROR: Buy transaction, seller user not found 04_Random event_Thanooj_2_100.0
+ERROR: Buy transaction, seller user not found 04_Random event_Thanooj_2_100.0
+ERROR: Buy transaction, seller user not found 04_Random event_Thanooj_2_100.0
+ERROR: Buy transaction, cannot have negative number of tickets for sale 04_Random event_Michael_2_100.0
