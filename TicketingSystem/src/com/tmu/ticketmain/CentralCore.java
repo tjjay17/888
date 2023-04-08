@@ -307,9 +307,9 @@ public class CentralCore {
 
         //We can check to see if a dtf from the previous day exists. 
         //if it does, then we simply process those transactions, add them to a merged dtf, and then delete that dtf.
-        String dtfTemp = "../DailyTransactionFiles/dtf_temp.txt";
+        String dtfTemp = "DailyTransactionFiles/dtf_temp.txt";
         File dtfTempFile = new File(dtfTemp);
-        File mergedDtf = new File("../DailyTransactionFiles/dtf_merged.txt");
+        File mergedDtf = new File("DailyTransactionFiles/dtf_merged.txt");
 
         if(dtfTempFile.exists()){
             try{
