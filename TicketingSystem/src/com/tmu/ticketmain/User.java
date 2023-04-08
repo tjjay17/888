@@ -86,7 +86,7 @@ public abstract class User {
 
 	public void modifyTicketFileBuy(String eventName, String sellerName, double price, int ticketQuantity){
 		try{
-			File ticketFile = new File("tickets.txt");
+			File ticketFile = new File("../tickets.txt");
 			PrintWriter pw;
 			BufferedWriter fw = new BufferedWriter( new FileWriter(ticketFile, true));
 			BufferedReader fr = new BufferedReader( new FileReader(ticketFile));
@@ -129,7 +129,7 @@ public abstract class User {
 
 	public void modifyTicketFileSell(String eventName, String sellerName, int ticketQuantity, double price){
 		try{
-			File ticketFile = new File("tickets.txt");
+			File ticketFile = new File("../tickets.txt");
 			PrintWriter pw;
 			BufferedWriter fw = new BufferedWriter( new FileWriter(ticketFile, true));
 			BufferedReader fr = new BufferedReader( new FileReader(ticketFile));
@@ -228,18 +228,18 @@ public abstract class User {
                                             System.out.println("The user does not have enough credit to complete this transaction.");
                                             continue;
                                         } else{
-											modifyTicketinStock(i, ticketQuantity);
-											modifyTicketFileBuy(eventName, sellerUsername, Price, ticketQuantity);
+											//modifyTicketinStock(i, ticketQuantity);
+											//modifyTicketFileBuy(eventName, sellerUsername, Price, ticketQuantity);
                                             System.out.println("Transaction processed successfully");
                                             System.out.println("Added buy transaction to daily transaction list.");
-					    CentralCore.buyFileChange(this.username,Price,ticketQuantity);
-                                            CentralCore.sellFileChange(sellerUsername,Price,ticketQuantity);
+					                        // CentralCore.buyFileChange(this.username,Price,ticketQuantity);
+                                            //CentralCore.sellFileChange(sellerUsername,Price,ticketQuantity);
                                             flag = false;
 
                                             //Save this information in the dailytransaction list and buy/sell transaction list
                                             CentralCore.addBuyTransaction(04, eventName, sellerUsername, ticketQuantity, Price);
                                             CentralCore.addBuySellTransaction(04, eventName, sellerUsername, ticketQuantity, Price);
-					    //break out of this loop.
+					                        //break out of this loop.
                                             break;
                                         }
                                     }
@@ -256,13 +256,13 @@ public abstract class User {
                             }
 			     break;
                         }else if(i == CentralCore.getTickets().size() - 1){
-							System.out.println("Wrong seller name, too many tickets requested or wrong event name.");
-							flag = false;
-							break;
-						}
-						if(validUserInput){
-							break;
-						}
+				System.out.println("Wrong seller name, too many tickets requested or wrong event name.");
+				flag = false;
+				break;
+			}
+			if(validUserInput){
+				break;
+			}
                     }
                 }
             }
@@ -369,7 +369,7 @@ public abstract class User {
 			//Save this information in the dailytransaction file
 			CentralCore.addCreditTransaction(this.username, credit_to_add, 6, this.usertype);
 			User currUser = CentralCore.findUser(username);
-			CentralCore.addCredFileChange(currUser.getUsername(), credit_to_add);
+			//CentralCore.addCredFileChange(currUser.getUsername(), credit_to_add);
 			currUser.setCredit(currUser.getCredit() + credit_to_add);
 			System.out.println("New credit is: " + currUser.getCredit());
             System.out.println("Added add credit transaction to daily transaction list.");
@@ -380,13 +380,11 @@ public abstract class User {
 	    }
 
 	    catch (InputMismatchException ex) {
-		
 		System.out.println("Try again!");	
-
 	    } 
 
 	}while(flag == true);
 
-     }
+    }
 
 }
