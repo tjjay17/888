@@ -1,7 +1,6 @@
 package com.tmu.ticketmain;
 import java.io.*;
 import java.util.*;
-import java.text.*;
 
 public class Daily_Transaction_File {
     private static final String createCode = "01";
@@ -17,16 +16,15 @@ public class Daily_Transaction_File {
 
     public static void createOrUpdateDailyFile(){
         //daily trans file written based on date
-        // Calendar calendarToday = Calendar.getInstance();
-        // Date d = calendarToday.getTime();
-
-        // String date = new SimpleDateFormat("dd").format(d);
-        // String month = new SimpleDateFormat("MM").format(d);
-        // String year = new SimpleDateFormat("yyyy").format(d);
+        Date d = new Date();
+        String year = Integer.toString(d.getYear());
+        String month = Integer.toString(d.getMonth());
+        String date = Integer.toString(d.getDate());
         List<DailyTransaction> transList = CentralCore.getTransactions();
 
         //file format - dtf_year_month_date.txt
-        File dtf = new File("../DailyTransactionFiles/dtf_temp.txt");
+        //FOR THANOOJ - File dtf = new File("../DailyTransactionFiles/dtf" + "_" +  year + "_" + month + "_" + date + ".txt");
+        File dtf = new File("DailyTransactionFiles/dtf" + "_" +  year + "_" + month + "_" + date + ".txt");
         
         try{
             BufferedWriter fw = new BufferedWriter( new FileWriter(dtf, true));
@@ -85,5 +83,6 @@ public class Daily_Transaction_File {
         }catch (Exception e){
             System.out.println("Error " + e.getMessage());
         }
+
     }
 }
