@@ -3,11 +3,11 @@ buyer           BS 80.000000
 seller          SS 25.000000
 fullStandard    FS 75.000000 
 Arnold          FS 230.00000
-Daniel          FS 260.00000
+Daniel          FS 290.00000
 Sarah           BS 500.00000
 jimbo           AA 145.20000
 bobbby          FS 988.00000
-pibbles         FS 1169.6000
+pibbles         FS 1139.6000
 Michael         SS 80.000000
 Jamie           BS 20.000000
 testttt         BS 300.00000

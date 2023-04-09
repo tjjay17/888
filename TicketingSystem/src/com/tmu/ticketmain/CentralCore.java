@@ -175,6 +175,10 @@ public class CentralCore {
         return ticketList;
     }
 
+    public static String getActiveUser(){
+        return activeUser.getUsername();
+    }
+
     public static User findUser(String userName){
         for(int i = 0; i < userList.size(); i++){
             if(userList.get(i).getUsername().equals(userName)){
@@ -197,8 +201,8 @@ public class CentralCore {
         transactionList.add(new DailyTransaction(code, eventName, sellerUser, ticketQuantity, price));
     }
 
-    public static void addBuyTransaction(int code, String eventName, String buyerUser, int ticketQuantity, double price){
-        transactionList.add(new DailyTransaction(code, eventName, buyerUser, ticketQuantity, price));
+    public static void addBuyTransaction(int code, String eventName, String buyerUser, String sellerUser, int ticketQuantity, double price){
+        transactionList.add(new DailyTransaction(code, eventName, buyerUser, sellerUser, ticketQuantity, price));
     }
     //Changed to correct format
     public static void addCreditTransaction(String userName, double credit, int code, String userType){
@@ -349,6 +353,7 @@ public class CentralCore {
             BufferedWriter errorfw = new BufferedWriter(new FileWriter(errorFile, true));
 
             String dtf_line = "";
+            double deductAmt = 0;
             List<String> userLines = CentralCore.userFileLines();
             List<String> ticketLines = CentralCore.ticketFileLines();
 
@@ -485,13 +490,16 @@ public class CentralCore {
                     }
                 }else if(code.equals("04")){
                     String eventName = dtfLineSplit[1].trim();
-                    String sellerName = dtfLineSplit[2].trim();
-                    String ticketNum = dtfLineSplit[3];
-                    String ticketPrice = dtfLineSplit[4];
-                    String newUserLine = "";
+                    String buyerName = dtfLineSplit[2].trim();
+                    String sellerName = dtfLineSplit[3].trim();
+                    String ticketNum = dtfLineSplit[4];
+                    String ticketPrice = dtfLineSplit[5];
+                    String sellUserLine = "";
+                    String buyUserLine = "";
 
                     int sellerIndex = -1;
                     int ticketIndex = -1;
+                    int buyerIndex = -1;
 
                     if(sellerName.trim().length() > 15){
                         errorfw.append("ERROR: Seller name longer than 15 characters " + dtf_line);
@@ -500,14 +508,18 @@ public class CentralCore {
                     }
 
                     for(int i = 0; i < userLines.size(); i++){
-                        System.out.println(userLines.get(i).substring(0, 16).trim());
-                        System.out.println(sellerName);
                         if(userLines.get(i).substring(0, 16).trim().equals(sellerName)){
                             sellerIndex = i;
                             String sellerNameCurr = userLines.get(i).substring(0, 16).trim();
                             String typeCurr = userLines.get(i).substring(16, 19).trim();
                             double creditCurr = Double.parseDouble(userLines.get(i).substring(19, 28).trim()) + Integer.parseInt(ticketNum) * Double.parseDouble(ticketPrice);
-                            newUserLine = Admin.userFormatter(sellerNameCurr) + " " + Admin.typeFormatter(typeCurr) + Admin.creditFormatter(creditCurr);
+                            sellUserLine = Admin.userFormatter(sellerNameCurr) + " " + Admin.typeFormatter(typeCurr) + Admin.creditFormatter(creditCurr);
+                        }else if(userLines.get(i).substring(0, 16).trim().equals(buyerName)){
+                            buyerIndex = i;
+                            String buyerNameCurr = userLines.get(i).substring(0, 16).trim();
+                            String typeCurr = userLines.get(i).substring(16, 19).trim();
+                            double creditCurr = Double.parseDouble(userLines.get(i).substring(19, 28).trim()) - Integer.parseInt(ticketNum) * Double.parseDouble(ticketPrice);
+                            buyUserLine = Admin.userFormatter(buyerNameCurr) + " " + Admin.typeFormatter(typeCurr) + Admin.creditFormatter(creditCurr);
                         }
                     }
 
@@ -527,10 +539,12 @@ public class CentralCore {
                         double filePrice = Double.parseDouble(ticketLines.get(ticketIndex).substring(45, 51).trim());
                         
                         if(fileTickets >= 0){
+                            deductAmt = deductAmt + filePrice;
                             String newTicketLine = Ticket.formatEventName(fileEventName) + Ticket.formatSellerName(fileSellerName) + Ticket.formatTicketQuantity(fileTickets) + Ticket.formatSellerPrice(filePrice);
-                            userLines.set(sellerIndex, newUserLine);
+                            userLines.set(sellerIndex, sellUserLine);
                             ticketLines.set(ticketIndex, newTicketLine);
                             rewriteTickets(ticketLines);
+                            rewriteUsers(userLines);
                         }else{
                             errorfw.append("ERROR: Buy transaction, cannot have negative number of tickets for sale " + dtf_line);
                             errorfw.newLine();
@@ -543,6 +557,11 @@ public class CentralCore {
                         //event not found
                         errorfw.append("ERROR: Buy transaction, event not found " + dtf_line);
                         errorfw.newLine();
+                    }
+
+                    if(buyerIndex != -1){
+                        userLines.set(buyerIndex, buyUserLine);
+                        rewriteUsers(userLines);
                     }
                 }else if(code.equals("03")){
                     String eventName = dtfLineSplit[1];

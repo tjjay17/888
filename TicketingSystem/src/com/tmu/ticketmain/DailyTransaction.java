@@ -41,6 +41,16 @@ public class DailyTransaction {
         // }
     }
 
+    //for buy
+    DailyTransaction(int code, String eventName, String buyUser, String sellerUser, int quantity, double price){
+        this.code = code;
+        this.eventName = eventName;
+        this.buyerUser = buyUser;
+        this.sellerUser = sellerUser;
+        this.ticketQuantity = quantity;
+        this.price = price;
+    }
+
     //add credit
     DailyTransaction(String addCredUser, double credit, int code, String userType){
         this.code = code;

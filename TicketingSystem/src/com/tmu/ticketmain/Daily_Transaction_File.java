@@ -57,9 +57,15 @@ public class Daily_Transaction_File {
                     String codeToUse = (currentTrans.getCode() == 3) ? buyCode : sellCode; 
                     String eventName = currentTrans.getEventName();
                     String sellerUserName = currentTrans.getSellerUser();
+                    String buyerUserName = currentTrans.getBuyerUser();
                     String numberTicketsSale = Integer.toString(currentTrans.getTicketQuantity());
                     String pricePerTicket = Double.toString(currentTrans.getPrice());
-                    String dtfLine = codeToUse + "_" + eventName + "_" + sellerUserName + "_" + numberTicketsSale + "_" + pricePerTicket;
+                    String dtfLine = "";
+                    if(currentTrans.getCode() == 4){
+                        dtfLine = codeToUse + "_" + eventName + "_" + buyerUserName + "_" +  sellerUserName + "_" + numberTicketsSale + "_" + pricePerTicket;
+                    }else{
+                        dtfLine = codeToUse + "_" + eventName + "_" + sellerUserName + "_" + numberTicketsSale + "_" + pricePerTicket;
+                    }
 
                     fw.append(dtfLine);
                 }else if(currentTrans.getCode() == 5){

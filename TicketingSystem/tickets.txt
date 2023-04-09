@@ -1,6 +1,6 @@
 Random event              Arnold         001 10.000
 Random event              Michael        000 100.00
-Random event              Daniel         003 15.000
+Random event              Daniel         001 15.000
 Another event             Michael        004 20.000
 test event here           pibbles        004 40.000
 new event                 pibbles        021 90.000
