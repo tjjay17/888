@@ -8,3 +8,4 @@ ERROR: Buy transaction, seller user not found 04_Random event_Thanooj_2_100.0
 ERROR: Buy transaction, seller user not found 04_Random event_Thanooj_2_100.0
 ERROR: Buy transaction, seller user not found 04_Random event_Thanooj_2_100.0
 ERROR: Buy transaction, cannot have negative number of tickets for sale 04_Random event_Michael_2_100.0
+ERROR: Create transaction, user not found 01_pibbles_FS_1000.0

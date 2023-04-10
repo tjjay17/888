@@ -87,3 +87,10 @@
 04_Random event_pibbles_Daniel_2_15.0
 00_pibbles_FS_1169.6
 00
+01_newPerson_FS_200.0
+01_pibbles_FS_1000.0
+00_admin_AA_99991.0
+00
+05_Arnold_pibbles_200.0
+00_admin_AA_99991.0
+00

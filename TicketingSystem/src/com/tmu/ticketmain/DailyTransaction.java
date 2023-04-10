@@ -26,7 +26,7 @@ public class DailyTransaction {
     private double credit;
     private double refund;
     
-    //for a sell or buy
+    //sell
     DailyTransaction(int code, String eventName, String transUser, int ticketQuantity, double price){
         this.code = code;
         this.eventName = eventName;
@@ -41,14 +41,15 @@ public class DailyTransaction {
         // }
     }
 
-    //for buy
-    DailyTransaction(int code, String eventName, String buyUser, String sellerUser, int quantity, double price){
+    //buy
+    DailyTransaction(int code, String eventName, String sellerUser, String buyersName, int ticketQuantity, double price){
         this.code = code;
         this.eventName = eventName;
-        this.buyerUser = buyUser;
-        this.sellerUser = sellerUser;
-        this.ticketQuantity = quantity;
+        this.ticketQuantity = ticketQuantity;
         this.price = price;
+        this.sellerUser = sellerUser;
+        this.buyerUser=buyersName;
+
     }
 
     //add credit

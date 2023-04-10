@@ -1,7 +1,6 @@
-Random event              Arnold         001 10.000
-Random event              Michael        000 100.00
-Random event              Daniel         001 15.000
-Another event             Michael        004 20.000
-test event here           pibbles        004 40.000
-new event                 pibbles        021 90.000
-END                                                
+Random event              Daniel         002 15.000
+new event                 pibbles        019 90.000
+brown                     seller         002 50.000
+Blanca                    seller         100 35.000
+Brazil                    seller         004 33.000
+END    

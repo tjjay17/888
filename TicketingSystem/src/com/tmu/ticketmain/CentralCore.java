@@ -185,7 +185,15 @@ public class CentralCore {
                 return userList.get(i);
             }
         }
-
+        return null;
+    }
+    
+    public static Ticket findTicket(String ticketName){
+        for(int i = 0; i < ticketList.size(); i++){
+            if(ticketList.get(i).getEventName().equals(ticketName)){
+                return ticketList.get(i);
+            }
+        }
         return null;
     }
     
@@ -201,8 +209,8 @@ public class CentralCore {
         transactionList.add(new DailyTransaction(code, eventName, sellerUser, ticketQuantity, price));
     }
 
-    public static void addBuyTransaction(int code, String eventName, String buyerUser, String sellerUser, int ticketQuantity, double price){
-        transactionList.add(new DailyTransaction(code, eventName, buyerUser, sellerUser, ticketQuantity, price));
+    public static void addBuyTransaction(int code, String eventName, String sellerUser, String buyerUser, int ticketQuantity, double price){
+        transactionList.add(new DailyTransaction(code, eventName, sellerUser, buyerUser, ticketQuantity, price));
     }
     //Changed to correct format
     public static void addCreditTransaction(String userName, double credit, int code, String userType){
@@ -402,7 +410,7 @@ public class CentralCore {
                         rewriteUsers(userLines);
                     }else if(userIndex != -1 && code.equals("01")){
                         //log a create error
-                        errorfw.append("ERROR: Create transaction, user not found " + dtf_line);
+                        errorfw.append("ERROR: Create transaction, user exists " + dtf_line);
                         errorfw.newLine();
                     }else if(userIndex != -1 && code.equals("02")){
                         userLines.remove(userIndex);
@@ -477,6 +485,11 @@ public class CentralCore {
                         if(sellerIndex == -1){
                             //seller finding error
                             errorfw.append("ERROR: Refund transaction, seller user not found " + dtf_line);
+                            errorfw.newLine();
+                        }
+                        
+                        if(sellerIndex == -1 && buyerIndex == -1){
+                            errorfw.append("ERROR: Refund transaction, buyer and seller not found " + dtf_line);
                             errorfw.newLine();
                         }
                     }else if(sellerFundsErr){
@@ -621,6 +634,24 @@ public class CentralCore {
         }
 
         return ticketLines;
+    }
+    
+    public static List<String> errorFileLines(){
+        List<String> errorLines = new ArrayList<String>();
+        String errorLine = "";
+
+        File errorFile = new File("../error.txt");
+        try{
+            BufferedReader fr = new BufferedReader(new FileReader(errorFile));
+            while((errorLine = fr.readLine()) != null){
+                errorLines.add(errorLine);
+            }
+            fr.close();
+        }catch(Exception e){
+            System.out.println("user file line read err: " + e);
+        }
+
+        return errorLines;
     }
 
     public static void rewriteUsers(List<String> userLines){
